@@ -1643,7 +1643,6 @@ packsymbols()
 {
   register bucket *bp;
   register int tokno = 1;
-  register int i;
   register int last_user_token_number;
 
   /* int lossage = 0; JF set but not used */

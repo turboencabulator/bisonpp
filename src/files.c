@@ -135,7 +135,9 @@ void
 openfiles()
 {
   char *name_base;
+#ifdef _MSDOS
   register char *cp;
+#endif
   char *filename;
   int base_length;
   int short_base_length;
@@ -354,7 +356,10 @@ open_extra_files()
 {
   FILE *ftmp;
   int c;
-  char *filename, *cp;
+  char *filename;
+#ifdef _MSDOS
+  char *cp;
+#endif
 
   fclose(fparser);
   filename=cparserfile;

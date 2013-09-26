@@ -200,7 +200,7 @@ static void
 useless_nonterminals ()
 {
   BSet Np, Ns;
-  int  i, n;
+  int  i;
 
   /*
    * N is set as built.  Np is set being built this iteration. P is set
@@ -227,7 +227,6 @@ useless_nonterminals ()
    * in this set will appear in the final grammar.
    */
 
-  n = 0;
   while (1)
     {
       for (i = WORDSIZE(nvars) - 1; i >= 0; i--)
@@ -257,7 +256,7 @@ static void
 inaccessable_symbols ()
 {
   BSet  Vp, Vs, Pp;
-  int   i, n;
+  int   i;
   short t;
   rule  r;
 
@@ -295,7 +294,6 @@ inaccessable_symbols ()
 
   SETBIT(V, start_symbol);
 
-  n = 0;
   while (1)
     {
       for (i = WORDSIZE(nsyms) - 1; i >= 0; i--)

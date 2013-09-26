@@ -1579,7 +1579,7 @@ FILE *file;
 };
 void output_token_const_decl(file)
 FILE *file;
-{char line[256];
+{
  output_token_defines_fmt(file,"static const int %s;\n",0);
  if (semantic_parser)
   output_token_defines_fmt(file,"static const int T%s;\n",1);
