@@ -30,10 +30,7 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 
 
-#ifdef __GNUC__
-#define alloca __builtin_alloca
-
-#elif defined (HAVE_ALLOCA_H) 
+#if defined (HAVE_ALLOCA_H)
 #include <alloca.h>
 
 #elif defined( _AIX)
