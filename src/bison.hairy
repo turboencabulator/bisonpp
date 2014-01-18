@@ -1,8 +1,5 @@
 /* header section */
 #include <stdio.h>
-#ifndef __STDC__
-#define const
-#endif
 
 
 $

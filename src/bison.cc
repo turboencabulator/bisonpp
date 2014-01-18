@@ -63,10 +63,6 @@ void *alloca ();
 #ifndef YY_USE_CLASS
 #define YY_USE_CLASS
 #endif
-#else
-#ifndef __STDC__
-#define const
-#endif
 #endif
 #include <stdio.h>
 #define YYBISON 1
