@@ -18,7 +18,7 @@ along with Bison; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 
-/* 
+/*
    lex() is the entry point.  It is called from reader.c.
    It returns one of the token-type codes defined in lex.h.
    When an identifier is seen, the code IDENTIFIER is returned
@@ -409,7 +409,7 @@ lex()
 	}
       *p = 0;
       return (TYPENAME);
-	    
+
 
     case '%':
       return (parse_percent_token());

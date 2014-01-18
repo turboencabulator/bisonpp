@@ -30,7 +30,7 @@ $ /* %{ and %header{ and %union, during decl */
 #endif
 #endif
 #ifdef YYSTYPE
-#ifndef YY_@_STYPE 
+#ifndef YY_@_STYPE
 #define YY_@_STYPE YYSTYPE
 /* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
 /* use %define STYPE */
@@ -151,13 +151,13 @@ $ /* #defines token */
 #define YY_@_INHERIT
 #endif
 #ifndef YY_@_MEMBERS
-#define YY_@_MEMBERS 
+#define YY_@_MEMBERS
 #endif
 #ifndef YY_@_LEX_BODY
-#define YY_@_LEX_BODY  
+#define YY_@_LEX_BODY
 #endif
 #ifndef YY_@_ERROR_BODY
-#define YY_@_ERROR_BODY  
+#define YY_@_ERROR_BODY
 #endif
 #ifndef YY_@_CONSTRUCTOR_PARAM
 #define YY_@_CONSTRUCTOR_PARAM
@@ -166,7 +166,7 @@ $ /* #defines token */
 #ifndef YY_@_USE_CONST_TOKEN
 #define YY_@_USE_CONST_TOKEN 0
 /* yes enum is more compatible with flex,  */
-/* so by default we use it */ 
+/* so by default we use it */
 #endif
 #if YY_@_USE_CONST_TOKEN != 0
 #ifndef YY_@_ENUM_TOKEN
@@ -176,7 +176,7 @@ $ /* #defines token */
 
 class YY_@_CLASS YY_@_INHERIT
 {
-public: 
+public:
 #if YY_@_USE_CONST_TOKEN != 0
 /* static const int token ... */
 $ /* decl const */
@@ -210,7 +210,7 @@ public:
 public:
  YY_@_CLASS(YY_@_CONSTRUCTOR_PARAM);
 public:
- YY_@_MEMBERS 
+ YY_@_MEMBERS
 };
 /* other declare folow */
 #endif
@@ -226,7 +226,7 @@ public:
 #define YYLTYPE YY_@_LTYPE
 #endif
 #ifndef YYDEBUG
-#ifdef YY_@_DEBUG 
+#ifdef YY_@_DEBUG
 #define YYDEBUG YY_@_DEBUG
 #endif
 #endif
@@ -235,6 +235,3 @@ public:
 /* END */
 $ /* section 3 %header{ */
  /* AFTER END , NEVER READ !!! */
-
-
-

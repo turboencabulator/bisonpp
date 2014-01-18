@@ -74,7 +74,7 @@ char *tmpdefsfile;
 char *hskelfile=NULL;
 char *cparserfile=NULL;
 FILE *fhskel=NULL;
-char *parser_name="parse"; 
+char *parser_name="parse";
 int parser_defined=0;
 int line_fparser=1;
 int line_fhskel=1;
@@ -169,7 +169,7 @@ openfiles()
        {char **suffix;
 	for(suffix=c_suffixes;*suffix;suffix++)
 	/* try to detect .c .cpp .tab.c ... options */
-	  {if(strlen(name_base)>strlen(*suffix) 
+	  {if(strlen(name_base)>strlen(*suffix)
 	      && strcmp(name_base+base_length-strlen(*suffix),*suffix)==0)
 	    { base_length -= strlen(*suffix);
 	     break;}
@@ -236,7 +236,7 @@ openfiles()
       strcpy(filename, PFILE);
       if((tst=fopen(filename,"r"))!=NULL)
        {fclose(tst);}
-      else 
+      else
       {
       strcpy(filename, cp);
       cp = filename + strlen(filename);
@@ -246,7 +246,7 @@ openfiles()
     }
 #endif /* MSDOS */
   {char *p=filename ? filename : PFILE;
-   
+
   parser_fname=(char *)xmalloc(strlen(p)+1);
   strcpy(parser_fname,p);
   }
@@ -264,7 +264,7 @@ openfiles()
       strcpy(filename, HFILE);
       if((tst=fopen(filename,"r"))!=NULL)
        {fclose(tst);}
-      else 
+      else
       {
       strcpy(filename, cp);
       cp = filename + strlen(filename);
@@ -275,7 +275,7 @@ openfiles()
     }
 #endif /* MSDOS */
   {char *p=filename ? filename : HFILE;
-   
+
   hskel_fname=(char *)xmalloc(strlen(p)+1);
   strcpy(hskel_fname,p);
   }
@@ -314,7 +314,7 @@ openfiles()
   if (definesflag)
     { if(header_name)
        defsfile=header_name;
-      else 
+      else
        defsfile = stringappend(name_base, base_length, ".h");
       fdefines = tryopen(tmpdefsfile, "w+");
     }
@@ -374,7 +374,7 @@ open_extra_files()
       strcpy(filename, PFILE1);
       if((tst=fopen(filename,"r"))!=NULL)
        {fclose(tst);}
-      else 
+      else
       {
       strcpy(filename, cp);
       cp = filename + strlen(filename);
@@ -385,7 +385,7 @@ open_extra_files()
     }
 #endif /* MSDOS */
   {char *p=filename ? filename : PFILE1;
-   
+
   parser_fname=(char *)xmalloc(strlen(p)+1);
   strcpy(parser_fname,p);
   }
@@ -455,7 +455,7 @@ int k;
       char *pospattern=pattern;
       ftmp=tryopen(tabfile, "w");
 /* avoid reloading the definitions of tab.h */
-      
+
       fprintf(ftmp,"#define YY_%s_h_included\n",parser_name);
       lftmp++;
       rewind(ftable);

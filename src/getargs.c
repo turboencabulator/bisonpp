@@ -99,35 +99,35 @@ getargs(argc, argv)
 	case 'y':
 	  fixed_outfiles = 1;
 	  break;
-	  
+
 	case 'V':
 	  printf("%s", version_string);
 	  exit(0);
-	  
+
 	case 'v':
 	  verboseflag = 1;
 	  break;
-	  
+
 	case 'd':
 	  definesflag = 1;
 	  break;
-	  
+
 	case 'l':
 	  nolinesflag = 1;
 	  break;
-	  
+
 	case 't':
 	  debugflag = 1;
 	  break;
-	  
+
 	case 'o':
 	  spec_outfile = optarg;
 	  break;
-	  
+
 	case 'b':
 	  spec_file_prefix = optarg;
 	  break;
-	  
+
 	case 'p':
 	  spec_name_prefix = optarg;
 	  break;
@@ -137,7 +137,7 @@ getargs(argc, argv)
 	case 'H':
 	  hskelfile = optarg;
 	  break;
-	  
+
 	case 'h':
 	  header_name = optarg;
 	  break;
@@ -145,7 +145,7 @@ getargs(argc, argv)
 	case 'u':
           usage(stdout);
 	  exit (0);
-	  
+
 	default:
           usage(stderr);
 	  exit (1);

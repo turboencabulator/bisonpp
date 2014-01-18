@@ -23,7 +23,7 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 lalr(), the entry point, builds these data structures:
 
-goto_map, from_state and to_state 
+goto_map, from_state and to_state
  record each shift transition which accepts a variable (a nonterminal).
 ngotos is the number of such transitions.
 from_state[t] is the state number which a transition leads from
@@ -38,7 +38,7 @@ The elements of LAruleno that apply to state s are those from
  lookaheads[s] through lookaheads[s+1]-1.
 Each element of LAruleno is a rule number.
 
-If lr is the length of LAruleno, then a number from 0 to lr-1 
+If lr is the length of LAruleno, then a number from 0 to lr-1
 can specify both a rule and a state where the rule might be applied.
 
 LA is a lr by ntokens matrix of bits.
@@ -412,7 +412,7 @@ initialize_F()
 	      if (nullable[symbol])
 		edge[nedges++] = map_goto(stateno, symbol);
 	    }
-	
+
 	  if (nedges)
 	    {
 	      reads[i] = rp = NEW2(nedges + 1, short);

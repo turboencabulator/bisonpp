@@ -17,7 +17,7 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 /* HEADER SECTION */
-#if defined( _MSDOS ) || defined(MSDOS) || defined(__MSDOS__) 
+#if defined( _MSDOS ) || defined(MSDOS) || defined(__MSDOS__)
 #define __MSDOS_AND_ALIKE
 #endif
 #if defined(_WINDOWS) && defined(_MSC_VER)
@@ -69,7 +69,7 @@ void *alloca ();
 #endif
 #endif
 #include <stdio.h>
-#define YYBISON 1  
+#define YYBISON 1
 $/* %{ and %header{ and %union, during decl */
 #define YY_@_BISON 1
 #ifndef YY_@_COMPATIBILITY
@@ -88,7 +88,7 @@ $/* %{ and %header{ and %union, during decl */
 #endif
 #endif
 #ifdef YYSTYPE
-#ifndef YY_@_STYPE 
+#ifndef YY_@_STYPE
 #define YY_@_STYPE YYSTYPE
 #endif
 #endif
@@ -217,7 +217,7 @@ typedef
 #endif
 #ifdef YY_@_DEBUG
 #ifndef YYDEBUG
-#define YYDEBUG YY_@_DEBUG 
+#define YYDEBUG YY_@_DEBUG
 #endif
 #endif
 #ifndef YY_@_ERROR_VERBOSE
@@ -243,13 +243,13 @@ $ /* #defines tokens */
 #define YY_@_INHERIT
 #endif
 #ifndef YY_@_MEMBERS
-#define YY_@_MEMBERS 
+#define YY_@_MEMBERS
 #endif
 #ifndef YY_@_LEX_BODY
-#define YY_@_LEX_BODY  
+#define YY_@_LEX_BODY
 #endif
 #ifndef YY_@_ERROR_BODY
-#define YY_@_ERROR_BODY  
+#define YY_@_ERROR_BODY
 #endif
 #ifndef YY_@_CONSTRUCTOR_PARAM
 #define YY_@_CONSTRUCTOR_PARAM
@@ -264,7 +264,7 @@ $ /* #defines tokens */
 #ifndef YY_@_USE_CONST_TOKEN
 #define YY_@_USE_CONST_TOKEN 0
 /* yes enum is more compatible with flex,  */
-/* so by default we use it */ 
+/* so by default we use it */
 #endif
 #if YY_@_USE_CONST_TOKEN != 0
 #ifndef YY_@_ENUM_TOKEN
@@ -274,7 +274,7 @@ $ /* #defines tokens */
 
 class YY_@_CLASS YY_@_INHERIT
 {
-public: 
+public:
 #if YY_@_USE_CONST_TOKEN != 0
 /* static const int token ... */
 $ /* decl const */
@@ -307,7 +307,7 @@ public:
 public:
  YY_@_CLASS(YY_@_CONSTRUCTOR_PARAM);
 public:
- YY_@_MEMBERS 
+ YY_@_MEMBERS
 };
 /* other declare folow */
 #if YY_@_USE_CONST_TOKEN != 0
@@ -334,10 +334,10 @@ $ /* fattrs + tables */
 
 /* Note: dollar marks section change
    the next  is replaced by the list of actions, each action
-   as one case of the switch.  */ 
+   as one case of the switch.  */
 
 #if YY_@_USE_GOTO != 0
-/* 
+/*
  SUPRESSION OF GOTO : on some C++ compiler (sun c++)
   the goto is strictly forbidden if any constructor/destructor
   is used in the whole function (very stupid isn't it ?)
@@ -348,19 +348,19 @@ $ /* fattrs + tables */
 #define YYBEGINGOTO  enum yy_labels yy_gotostate=yygotostart; \
                      for(;;) switch(yy_gotostate) { case yygotostart: {
 #define YYLABEL(lb) } case lb: {
-#define YYENDGOTO } } 
+#define YYENDGOTO } }
 #define YYBEGINDECLARELABEL enum yy_labels {yygotostart
 #define YYDECLARELABEL(lb) ,lb
 #define YYENDDECLARELABEL  };
 #else
 /* macro to keep goto */
 #define YYGOTO(lb) goto lb
-#define YYBEGINGOTO 
+#define YYBEGINGOTO
 #define YYLABEL(lb) lb:
 #define YYENDGOTO
-#define YYBEGINDECLARELABEL 
+#define YYBEGINDECLARELABEL
 #define YYDECLARELABEL(lb)
-#define YYENDDECLARELABEL 
+#define YYENDDECLARELABEL
 #endif
 /* LABEL DECLARATION */
 YYBEGINDECLARELABEL
@@ -373,7 +373,7 @@ YYBEGINDECLARELABEL
   YYDECLARELABEL(yyerrlab1)   /* here on error raised explicitly by an action */
   YYDECLARELABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
   YYDECLARELABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
-  YYDECLARELABEL(yyerrhandle)  
+  YYDECLARELABEL(yyerrhandle)
 YYENDDECLARELABEL
 /* ALLOCA SIMULATION */
 /* __HAVE_NO_ALLOCA */
@@ -400,7 +400,7 @@ int __alloca_free_ptr(char *ptr,char *ref)
 #else
 #define __ALLOCA_return(num) return(num)
 #define __ALLOCA_alloca(size) alloca(size)
-#define __ALLOCA_free(ptr,ref) 
+#define __ALLOCA_free(ptr,ref)
 #endif
 
 /* ENDALLOCA SIMULATION */

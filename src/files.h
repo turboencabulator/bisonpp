@@ -56,7 +56,7 @@ extern char *actfile;
 #define HFILE	XHFILE		/*  header Skeleton */
 extern char *hskelfile;   /* -H option : parser file name */
 extern char *cparserfile; /* -S option header skeleton filename */
-extern FILE *fhskel;      
+extern FILE *fhskel;
 extern char *parser_name;
 extern int parser_defined;
 extern int yylsp_needed;

@@ -72,7 +72,7 @@ yypact[s] = index in yytable of the portion describing state s.
 
 	    If the value is zero, the default action from yydefact[s] is used.
 
-yypgoto[i] = the index in yytable of the portion describing 
+yypgoto[i] = the index in yytable of the portion describing
              what to do after reducing a rule that derives variable i + ntokens.
              This portion is indexed by the parser state number
 	     as of before the text for this nonterminal was read.
@@ -207,7 +207,7 @@ register YYLTYPE *yylsp;\n{\n  switch (n)\n{"
 
 void
 output_before_read()
-{ 
+{
   fprintf(ftable, "\n/*  A Bison++ parser, made from %s  */\n\n", infile);
   fprintf(ftable, " /* with Bison++ version %s  */\n\n", version_string);
   output_section(fparser,ftable);
@@ -274,11 +274,11 @@ output_trailers()
   output_section(fparser,ftable);
   /* output the definition of YYLTYPE into the fattrs and fdefines files.  */
   if(debugflag)
-   {fprintf(ftable, 
+   {fprintf(ftable,
     "#define YY_%s_DEBUG %d\n"
 	    ,parser_name,!!debugflag);
     if (definesflag)
-     fprintf(fdefines, 
+     fprintf(fdefines,
       "#define YY_%s_DEBUG %d\n",
             parser_name,!!debugflag);
     }
@@ -294,7 +294,7 @@ output_trailers()
 
       if (definesflag)
 	{
-         fprintf(fdefines, 
+         fprintf(fdefines,
              "#define YY_%s_LSP_NEEDED\n",
               parser_name);
         }
@@ -352,17 +352,17 @@ output_token_translations()
       fprintf(ftable,
 	      "\n#define YYTRANSLATE(x) ((unsigned)(x) <= %d ? yytranslate[x] : %d)\n",
 	      max_user_token_number, nsyms);
-    
+
       if (ntokens < 127)  /* play it very safe; check maximum element value.  */
         fprintf(ftable, "\nstatic const char yytranslate[] = {     0");
       else
 	fprintf(ftable, "\nstatic const short yytranslate[] = {     0");
-    
+
       j = 10;
       for (i = 1; i <= max_user_token_number; i++)
 	{
 	  putc(',', ftable);
-    
+
 	  if (j >= 10)
 	    {
 	      putc('\n', ftable);
@@ -372,16 +372,16 @@ output_token_translations()
 	    {
 	      j++;
 	    }
-    
+
 	  fprintf(ftable, "%6d", token_translations[i]);
 	}
-    
+
       fprintf(ftable, "\n};\n");
     }
   else
     {
       fprintf(ftable, "\n#define YYTRANSLATE(x) (x)\n");
-    } 
+    }
 }
 
 
@@ -485,7 +485,7 @@ output_rule_data()
   register int i;
   register int j;
 
-  fprintf(ftable, 
+  fprintf(ftable,
      "\n#if YY_%s_DEBUG != 0\nstatic const short yyrline[] = { 0",parser_name);
 
   j = 10;
@@ -836,23 +836,23 @@ int state;
 	    {
 	      count = 0;
 	      rule = - LAruleno[i];
-    
+
 	      for (j = 0; j < ntokens; j++)
 		{
 		  if (actrow[j] == rule)
 		    count++;
 		}
-    
+
 	      if (count > max)
 		{
 		  max = count;
 		  default_rule = rule;
 		}
 	    }
-    
+
 	  /* actions which match the default are replaced with zero,
 	     which means "use the default" */
-    
+
 	  if (max > 0)
 	    {
 	      for (j = 0; j < ntokens; j++)
@@ -860,7 +860,7 @@ int state;
 		  if (actrow[j] == default_rule)
 		    actrow[j] = 0;
 		}
-    
+
 	      default_rule = - default_rule;
 	    }
 	}
@@ -1049,7 +1049,7 @@ int default_state;
 
 
 
-/* the next few functions decide how to pack 
+/* the next few functions decide how to pack
    the actions and gotos information into yytable. */
 
 void
@@ -1384,9 +1384,9 @@ FILE *fin,*fout;
   int *pcounter=&dummy;
   char *fil_name;
   fil_name="?";
-  if(fin==fparser) 
+  if(fin==fparser)
    {pcounter=&line_fparser;fil_name=parser_fname;}
-  else if(fin==fhskel) 
+  else if(fin==fhskel)
    {pcounter=&line_fhskel;fil_name=hskel_fname;}
   /* Loop over lines in the standard parser file.  */
   if (!nolinesflag)
@@ -1394,14 +1394,14 @@ FILE *fin,*fout;
 
   while (1)
     {
-      
+
 
       /* now write out the line... */
       for ( c = getc(fin); c != '\n' && c != EOF; c = getc(fin))
 	  {if (c == '$')
 	    {
   	    if (!nolinesflag)
-   		{fprintf(fout, 
+   		{fprintf(fout,
                 "\n/* #line %d \"%s\" */\n#line @\n",
 		 (*pcounter), quoted_filename(fil_name));
                 }
@@ -1435,7 +1435,7 @@ output_program()
   if (!nolinesflag)
     fprintf(ftable, "#line %d \"%s\"\n", lineno, quoted_filename(infile));
 
-  
+
   for (c = getc(finput);c != EOF;last=c,c = getc(finput))
     {
      if(!match_wait[len_match])
@@ -1445,7 +1445,7 @@ output_program()
 	   fprintf(fdefines, "\n#line %d \"%s\"\n", lineno, quoted_filename(infile));
 
          }
-        else 
+        else
          {match_wait=match_open;}
         len_match=0;
        }
@@ -1456,7 +1456,7 @@ output_program()
            putc(match_wait[i],ftable);}
          len_match=0;
        };
-     if(c==match_wait[len_match] && !is_escaped && !is_commented && !quoted) 
+     if(c==match_wait[len_match] && !is_escaped && !is_commented && !quoted)
        {len_match++;}
      else
        {if(match_wait==match_close && definesflag)
@@ -1466,23 +1466,23 @@ output_program()
      if(c=='\n') lineno++;
      if(is_escaped)
        {is_escaped=0;}
-     else if(c=='\\') 
+     else if(c=='\\')
          {is_escaped=1;}
-     else if(is_commented==1) 
-       {if(last=='*' && c=='/') 
+     else if(is_commented==1)
+       {if(last=='*' && c=='/')
          is_commented=0;}
-     else if(is_commented==2) 
-       {if(c=='\n') 
+     else if(is_commented==2)
+       {if(c=='\n')
          is_commented=0;}
-     else if((c=='"'|| c== '\'')) 
+     else if((c=='"'|| c== '\''))
          {if(!quoted) quoted=c;
           else if(quoted==c) quoted='\0';
          }
      else if(quoted) {}
      else if(last=='/' && c=='*') is_commented=1;
      else if(last=='/' && c=='/') is_commented=2;
-     
-      
+
+
     }
 }
 
@@ -1533,7 +1533,7 @@ void output_token_const_decl();
 
 void output_about_token()
 { register int i;
- 
+
   output_section(fparser,ftable);
   output_token_defines(ftable);
   output_section(fparser,ftable);
@@ -1584,7 +1584,7 @@ FILE *file;
  if (semantic_parser)
   output_token_defines_fmt(file,"static const int T%s;\n",1);
 };
-/* create a list like 
+/* create a list like
 	,FIRST_TOKEN=256
 	,SECOND_TOKEN=257
 */

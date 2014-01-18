@@ -226,27 +226,27 @@ read_declarations ()
 	    case TOKEN:
 	      parse_token_decl (STOKEN, SNTERM);
 	      break;
-	
+
 	    case NTERM:
 	      parse_token_decl (SNTERM, STOKEN);
 	      break;
-	
+
 	    case TYPE:
 	      parse_type_decl();
 	      break;
-	
+
 	    case START:
 	      parse_start_decl();
 	      break;
-	
+
 	    case UNION:
 	      parse_union_decl();
 	      break;
-	
+
 	    case EXPECT:
 	      parse_expect_decl();
 	      break;
-	
+
 	    case LEFT:
 	      parse_assoc_decl(LEFT_ASSOC);
 	      break;
@@ -273,15 +273,15 @@ read_declarations ()
 	      pure_parser = 1;
 	      break;
 
-           
+
 	    case PARSER_NAME:
               parse_name_declaration();
 	      break;
-           
+
 	    case DEFINE_SYM:
               parse_define();
 	      break;
-           
+
 
 	    default:
 	      fatal("junk after `%%' in definition section");
@@ -314,19 +314,19 @@ copy_header_definition ()
 {
   if (!nolinesflag)
     {fprintf(ftable, "#line %d \"%s\"\n", lineno, quoted_filename(infile));
-     if(definesflag) 
+     if(definesflag)
       fprintf(fdefines, "#line %d \"%s\"\n", lineno, quoted_filename(infile));
     }
  copy_a_definition (hputc);
 }
-void 
+void
 hputc(c)
 int c;
 {
  putc(c,ftable);
  if(definesflag) putc(c,fdefines);
 }
-void 
+void
 cputc(c)
 int c;
 {
@@ -359,7 +359,7 @@ void (*do_put)();
 	case '%':
           after_percent = -1;
 	  break;
-	      
+
 	case '\'':
 	case '"':
 	  match = c;
@@ -372,7 +372,7 @@ void (*do_put)();
 		fatal("unterminated string");
 
 	      (*do_put)(c);
-	      
+
 	      if (c == '\\')
 		{
 		  c = getc(finput);
@@ -662,7 +662,7 @@ int assoc;
 	      symval->user_token_number = numval;
 	      translations = 1;
             }
-          else	  
+          else
 	    fatal("invalid text in association declaration");
 	  break;
 
@@ -777,11 +777,11 @@ parse_union_decl()
 	  count--;
 	  if (count == 0)
 	    { set_parser_name(NULL); /* if undef, use default */
-	      fprintf(ftable, 
+	      fprintf(ftable,
                " yy_%s_stype;\n#define YY_%s_STYPE yy_%s_stype\n",
                parser_name,parser_name,parser_name);
 	      if (definesflag)
-		fprintf(fdefines,  
+		fprintf(fdefines,
                " yy_%s_stype;\n#define YY_%s_STYPE yy_%s_stype\n",
                parser_name,parser_name,parser_name);
 	      /* JF don't choke on trailing semi */
@@ -923,7 +923,7 @@ int stack_offset;
 		fatal("unterminated string");
 
 	      putc(c, fguard);
-	      
+
 	      if (c == '\\')
 		{
 		  c = getc(finput);
@@ -1338,7 +1338,7 @@ readgram()
 	  if (t == IDENTIFIER)
 	    {
 	      lhs = symval;
-    
+
 	      t = lex();
 	      if (t != COLON)
 		fatal("ill-formed rule");
@@ -1686,7 +1686,7 @@ packsymbols()
       /* initialize all entries for literal tokens to 2,
 	 the internal token number for $illegal., which represents all invalid inputs.  */
       for (i = 0; i <= max_user_token_number; i++)
-        token_translations[i] = 2;      
+        token_translations[i] = 2;
     }
 
   for (bp = firstsymbol; bp; bp = bp->next)
@@ -1708,7 +1708,7 @@ packsymbols()
 
   error_token_number = errtoken->value;
 
-  
+
   if (startval->class == SUNKNOWN)
     fatals("the start symbol %s is undefined", startval->tag);
   else if (startval->class == STOKEN)
@@ -1717,7 +1717,7 @@ packsymbols()
   start_symbol = startval->value;
   output_about_token();
 }
-      
+
 
 
 
@@ -1837,7 +1837,7 @@ int len;
 {int c,l;
  for(c = skip_white_space(),l=0;
      (isalnum(c) || c == '_');
-     c=getc(finput),l++) 
+     c=getc(finput),l++)
       if(l<len) buf[l]=c;
  if(l>=len)
    {buf[len-1]=0;
@@ -1845,11 +1845,11 @@ int len;
          ,infile,lineno,buf);
    }
  else
-  buf[l]=0;    
-     
+  buf[l]=0;
+
  ungetc(c, finput);
 
-}  ;  
+}  ;
 
 void
 parse_name_declaration()

@@ -140,7 +140,7 @@ int state;
 	fp1 = LA + i * tokensetsize;
 	fp2 = fp1;
 	fp3 = lookaheadset;
-  
+
 	while (fp3 < fp4)
 	  {
 	    if (*fp2++ & *fp3++)
@@ -343,7 +343,7 @@ conflict_log()
 
   total_conflicts();
 }
-  
+
 
 void
 verbose_conflict_log()
@@ -647,10 +647,10 @@ int state;
 	    fp1 = LA + i * tokensetsize;
 	    fp2 = shiftset;
 	    fp3 = lookaheadset;
-  
+
 	    while (fp3 < fp4)
 	      *fp3++ = *fp1++ & ( ~ (*fp2++));
-  
+
 	    count = 0;
 	    mask = 1;
 	    fp3 = lookaheadset;
@@ -658,7 +658,7 @@ int state;
 	      {
 		if (mask & *fp3)
 		  count++;
-  
+
 		mask <<= 1;
 		if (mask == 0)
 		  {
@@ -666,17 +666,17 @@ int state;
 		    fp3++;
 		  }
 	      }
-  
+
 	    if (count > cmax)
 	      {
 		cmax = count;
 		default_LA = i;
 		default_rule = LAruleno[i];
 	      }
-  
+
 	    fp2 = shiftset;
 	    fp3 = lookaheadset;
-  
+
 	    while (fp3 < fp4)
 	      *fp2++ |= *fp3++;
 	  }
