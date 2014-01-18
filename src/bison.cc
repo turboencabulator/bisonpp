@@ -65,6 +65,7 @@ void *alloca ();
 #endif
 #endif
 #include <stdio.h>
+#include <string.h>
 #define YYBISON 1
 $/* %{ and %header{ and %union, during decl */
 #define YY_@_BISON 1
@@ -481,35 +482,6 @@ int YY_@_DEBUG_FLAG;                    /*  nonzero means print parse trace     
 #endif
 
 
-#if __GNUC__ > 1                /* GNU C and GNU C++ define this.  */
-#define __yy_bcopy(FROM,TO,COUNT)       __builtin_memcpy(TO,FROM,COUNT)
-#else                           /* not GNU C or C++ */
-
-/* This is the most reliable way to avoid incompatibilities
-   in available built-in functions on various systems.  */
-
-#ifdef __cplusplus
-static void __yy_bcopy (char *from, char *to, int count)
-#else
-#ifdef __STDC__
-static void __yy_bcopy (char *from, char *to, int count)
-#else
-static void __yy_bcopy (from, to, count)
-     char *from;
-     char *to;
-     int count;
-#endif
-#endif
-{
-  register char *f = from;
-  register char *t = to;
-  register int i = count;
-
-  while (i-- > 0)
-    *t++ = *f++;
-}
-#endif
-
 int
 #ifdef YY_USE_CLASS
  YY_@_CLASS::
@@ -639,14 +611,14 @@ YYLABEL(yynewstate)
       if (yystacksize > YYMAXDEPTH)
 	yystacksize = YYMAXDEPTH;
       yyss = (short *) __ALLOCA_alloca (yystacksize * sizeof (*yyssp));
-      __yy_bcopy ((char *)yyss1, (char *)yyss, size * sizeof (*yyssp));
+      memcpy((char *)yyss, (char *)yyss1, size * sizeof (*yyssp));
       __ALLOCA_free(yyss1,yyssa);
       yyvs = (YY_@_STYPE *) __ALLOCA_alloca (yystacksize * sizeof (*yyvsp));
-      __yy_bcopy ((char *)yyvs1, (char *)yyvs, size * sizeof (*yyvsp));
+      memcpy((char *)yyvs, (char *)yyvs1, size * sizeof (*yyvsp));
       __ALLOCA_free(yyvs1,yyvsa);
 #ifdef YY_@_LSP_NEEDED
       yyls = (YY_@_LTYPE *) __ALLOCA_alloca (yystacksize * sizeof (*yylsp));
-      __yy_bcopy ((char *)yyls1, (char *)yyls, size * sizeof (*yylsp));
+      memcpy((char *)yyls, (char *)yyls1, size * sizeof (*yylsp));
       __ALLOCA_free(yyls1,yylsa);
 #endif
 #endif /* no yyoverflow */
