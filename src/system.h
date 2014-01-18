@@ -31,7 +31,4 @@
 #if !defined(STDC_HEADERS) && defined(HAVE_MEMORY_H)
 #include <memory.h>
 #endif /* not STDC_HEADERS and HAVE_MEMORY_H */
-#else /* not STDC_HEADERS and not HAVE_STRING_H */
-#include <strings.h>
-/* memory.h and strings.h conflict on some systems.  */
 #endif /* not STDC_HEADERS and not HAVE_STRING_H */
