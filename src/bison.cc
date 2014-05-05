@@ -17,13 +17,6 @@
    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 /* HEADER SECTION */
-#if defined( _MSDOS ) || defined(MSDOS) || defined(__MSDOS__)
-#define __MSDOS_AND_ALIKE
-#endif
-#if defined(_WINDOWS) && defined(_MSC_VER)
-#define __MSDOS_AND_ALIKE
-#endif
-
 #ifdef __cplusplus
 #ifndef YY_USE_CLASS
 #define YY_USE_CLASS
