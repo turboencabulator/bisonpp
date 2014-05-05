@@ -1,9 +1,4 @@
 /* before anything */
-#ifdef c_plusplus
-#ifndef __cplusplus
-#define __cplusplus
-#endif
-#endif
 #ifdef __cplusplus
 #ifndef YY_USE_CLASS
 #define YY_USE_CLASS

@@ -54,11 +54,6 @@ void *alloca ();
 
 #endif /* not _AIX  not MSDOS, or __TURBOC__ or _AIX, not sparc.  */
 #endif /* alloca not defined.  */
-#ifdef c_plusplus
-#ifndef __cplusplus
-#define __cplusplus
-#endif
-#endif
 #ifdef __cplusplus
 #ifndef YY_USE_CLASS
 #define YY_USE_CLASS
