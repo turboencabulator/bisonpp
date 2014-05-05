@@ -111,21 +111,8 @@ typedef
 #ifndef YY_@_ERROR
 #define YY_@_ERROR yyerror
 #endif
-
-#ifndef YY_@_PARSE_PARAM
-#ifndef __STDC__
-#ifndef __cplusplus
-#ifndef YY_USE_CLASS
-#define YY_@_PARSE_PARAM
-#ifndef YY_@_PARSE_PARAM_DEF
-#define YY_@_PARSE_PARAM_DEF
-#endif
-#endif
-#endif
-#endif
 #ifndef YY_@_PARSE_PARAM
 #define YY_@_PARSE_PARAM void
-#endif
 #endif
 
 /* TOKEN C */

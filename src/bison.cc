@@ -138,20 +138,9 @@ typedef
 #define YY_@_ERROR yyerror
 #endif
 #ifndef YY_@_PARSE_PARAM
-#ifndef __STDC__
-#ifndef __cplusplus
-#ifndef YY_USE_CLASS
-#define YY_@_PARSE_PARAM
-#ifndef YY_@_PARSE_PARAM_DEF
-#define YY_@_PARSE_PARAM_DEF
-#endif
-#endif
-#endif
-#endif
-#ifndef YY_@_PARSE_PARAM
 #define YY_@_PARSE_PARAM void
 #endif
-#endif
+
 #if YY_@_COMPATIBILITY != 0
 /* backward compatibility */
 #ifdef YY_@_LTYPE
@@ -417,14 +406,6 @@ int
  YY_@_CLASS::
 #endif
      YY_@_PARSE(YY_@_PARSE_PARAM)
-#ifndef __STDC__
-#ifndef __cplusplus
-#ifndef YY_USE_CLASS
-/* parameter definition without protypes */
-YY_@_PARSE_PARAM_DEF
-#endif
-#endif
-#endif
 {
   register int yystate;
   register int yyn;
