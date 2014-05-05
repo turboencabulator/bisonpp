@@ -21,44 +21,15 @@
 #define __MSDOS_AND_ALIKE
 #endif
 #if defined(_WINDOWS) && defined(_MSC_VER)
-#define __HAVE_NO_ALLOCA
 #define __MSDOS_AND_ALIKE
 #endif
 
-#ifndef alloca
-#if defined( __GNUC__)
-#define alloca __builtin_alloca
-
-#elif (!defined (__STDC__) && defined (sparc)) || defined (__sparc__) || defined (__sparc)  || defined (__sgi)
-#include <alloca.h>
-
-#elif defined (__MSDOS_AND_ALIKE)
-#include <malloc.h>
-#ifndef __TURBOC__
-/* MS C runtime lib */
-#define alloca _alloca
-#endif
-
-#elif defined(_AIX)
-#include <malloc.h>
-#pragma alloca
-
-#elif defined(__hpux)
-#ifdef __cplusplus
-extern "C" {
-void *alloca (unsigned int);
-};
-#else /* not __cplusplus */
-void *alloca ();
-#endif /* not __cplusplus */
-
-#endif /* not _AIX  not MSDOS, or __TURBOC__ or _AIX, not sparc.  */
-#endif /* alloca not defined.  */
 #ifdef __cplusplus
 #ifndef YY_USE_CLASS
 #define YY_USE_CLASS
 #endif
 #endif
+#include <alloca.h>
 #include <stdio.h>
 #include <string.h>
 #define YYBISON 1
@@ -367,42 +338,13 @@ YYBEGINDECLARELABEL
   YYDECLARELABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
   YYDECLARELABEL(yyerrhandle)
 YYENDDECLARELABEL
-/* ALLOCA SIMULATION */
-/* __HAVE_NO_ALLOCA */
-#ifdef __HAVE_NO_ALLOCA
-static int __alloca_free_ptr(char *ptr,char *ref)
-{if(ptr!=ref) free(ptr);
- return 0;}
-
-#define __ALLOCA_alloca(size) malloc(size)
-#define __ALLOCA_free(ptr,ref) __alloca_free_ptr((char *)ptr,(char *)ref)
-
-#ifdef YY_@_LSP_NEEDED
-#define __ALLOCA_return(num) \
-            return( __ALLOCA_free(yyss,yyssa)+\
-		    __ALLOCA_free(yyvs,yyvsa)+\
-		    __ALLOCA_free(yyls,yylsa)+\
-		   (num))
-#else
-#define __ALLOCA_return(num) \
-            return( __ALLOCA_free(yyss,yyssa)+\
-		    __ALLOCA_free(yyvs,yyvsa)+\
-		   (num))
-#endif
-#else
-#define __ALLOCA_return(num) return(num)
-#define __ALLOCA_alloca(size) alloca(size)
-#define __ALLOCA_free(ptr,ref)
-#endif
-
-/* ENDALLOCA SIMULATION */
 
 #define yyerrok         (yyerrstatus = 0)
 #define yyclearin       (YY_@_CHAR = YYEMPTY)
 #define YYEMPTY         -2
 #define YYEOF           0
-#define YYACCEPT        __ALLOCA_return(0)
-#define YYABORT         __ALLOCA_return(1)
+#define YYACCEPT        return 0
+#define YYABORT         return 1
 #define YYERROR         YYGOTO(yyerrlab1)
 /* Like YYERROR except do call yyerror.
    This remains here temporarily to ease the
@@ -600,21 +542,18 @@ YYLABEL(yynewstate)
       if (yystacksize >= YYMAXDEPTH)
 	{
 	  YY_@_ERROR("parser stack overflow");
-	  __ALLOCA_return(2);
+	  return 2;
 	}
       yystacksize *= 2;
       if (yystacksize > YYMAXDEPTH)
 	yystacksize = YYMAXDEPTH;
-      yyss = (short *) __ALLOCA_alloca (yystacksize * sizeof (*yyssp));
+      yyss = (short *) alloca(yystacksize * sizeof (*yyssp));
       memcpy((char *)yyss, (char *)yyss1, size * sizeof (*yyssp));
-      __ALLOCA_free(yyss1,yyssa);
-      yyvs = (YY_@_STYPE *) __ALLOCA_alloca (yystacksize * sizeof (*yyvsp));
+      yyvs = (YY_@_STYPE *) alloca(yystacksize * sizeof (*yyvsp));
       memcpy((char *)yyvs, (char *)yyvs1, size * sizeof (*yyvsp));
-      __ALLOCA_free(yyvs1,yyvsa);
 #ifdef YY_@_LSP_NEEDED
-      yyls = (YY_@_LTYPE *) __ALLOCA_alloca (yystacksize * sizeof (*yylsp));
+      yyls = (YY_@_LTYPE *) alloca(yystacksize * sizeof (*yylsp));
       memcpy((char *)yyls, (char *)yyls1, size * sizeof (*yylsp));
-      __ALLOCA_free(yyls1,yylsa);
 #endif
 #endif /* no yyoverflow */
 
