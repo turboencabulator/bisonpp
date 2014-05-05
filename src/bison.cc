@@ -58,15 +58,6 @@ $/* %{ and %header{ and %union, during decl */
 #define yystype YY_@_STYPE
 #endif
 #endif
-/* use goto to be compatible */
-#ifndef YY_@_USE_GOTO
-#define YY_@_USE_GOTO 1
-#endif
-#endif
-
-/* use no goto to be clean in C++ */
-#ifndef YY_@_USE_GOTO
-#define YY_@_USE_GOTO 0
 #endif
 
 #ifndef YY_@_PURE
@@ -281,58 +272,18 @@ $ /* fattrs + tables */
    the next  is replaced by the list of actions, each action
    as one case of the switch.  */
 
-#if YY_@_USE_GOTO != 0
-/*
- SUPRESSION OF GOTO : on some C++ compiler (sun c++)
-  the goto is strictly forbidden if any constructor/destructor
-  is used in the whole function (very stupid isn't it ?)
- so goto are to be replaced with a 'while/switch/case construct'
- here are the macro to keep some apparent compatibility
-*/
-#define YYGOTO(lb) {yy_gotostate=lb;continue;}
-#define YYBEGINGOTO  enum yy_labels yy_gotostate=yygotostart; \
-                     for(;;) switch(yy_gotostate) { case yygotostart: {
-#define YYLABEL(lb) } case lb: {
-#define YYENDGOTO } }
-#define YYBEGINDECLARELABEL enum yy_labels {yygotostart
-#define YYDECLARELABEL(lb) ,lb
-#define YYENDDECLARELABEL  };
-#else
-/* macro to keep goto */
-#define YYGOTO(lb) goto lb
-#define YYBEGINGOTO
-#define YYLABEL(lb) lb:
-#define YYENDGOTO
-#define YYBEGINDECLARELABEL
-#define YYDECLARELABEL(lb)
-#define YYENDDECLARELABEL
-#endif
-/* LABEL DECLARATION */
-YYBEGINDECLARELABEL
-  YYDECLARELABEL(yynewstate)
-  YYDECLARELABEL(yybackup)
-/* YYDECLARELABEL(yyresume) */
-  YYDECLARELABEL(yydefault)
-  YYDECLARELABEL(yyreduce)
-  YYDECLARELABEL(yyerrlab)   /* here on detecting error */
-  YYDECLARELABEL(yyerrlab1)   /* here on error raised explicitly by an action */
-  YYDECLARELABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
-  YYDECLARELABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
-  YYDECLARELABEL(yyerrhandle)
-YYENDDECLARELABEL
-
 #define yyerrok         (yyerrstatus = 0)
 #define yyclearin       (YY_@_CHAR = YYEMPTY)
 #define YYEMPTY         -2
 #define YYEOF           0
 #define YYACCEPT        return 0
 #define YYABORT         return 1
-#define YYERROR         YYGOTO(yyerrlab1)
+#define YYERROR         goto yyerrlab1
 /* Like YYERROR except do call yyerror.
    This remains here temporarily to ease the
    transition to the new meaning of YYERROR, for GCC.
    Once GCC version 2 has supplanted version 1, this can go.  */
-#define YYFAIL          YYGOTO(yyerrlab)
+#define YYFAIL          goto yyerrlab
 #define YYRECOVERING()  (!!yyerrstatus)
 #define YYBACKUP(token, value) \
 do                                                              \
@@ -340,7 +291,7 @@ do                                                              \
     { YY_@_CHAR = (token), YY_@_LVAL = (value);                 \
       yychar1 = YYTRANSLATE (YY_@_CHAR);                                \
       YYPOPSTACK;                                               \
-      YYGOTO(yybackup);                                            \
+      goto yybackup;                                            \
     }                                                           \
   else                                                          \
     { YY_@_ERROR ("syntax error: cannot back up"); YYERROR; }   \
@@ -446,8 +397,6 @@ int
 				/*  routines                            */
 
   int yylen;
-/* start loop, in which YYGOTO may be used. */
-YYBEGINGOTO
 
 #if YY_@_DEBUG != 0
   if (YY_@_DEBUG_FLAG)
@@ -472,7 +421,7 @@ YYBEGINGOTO
 /* Push a new state, which is found in  yystate  .  */
 /* In all cases, when you get here, the value and location stacks
    have just been pushed. so pushing a state here evens the stacks.  */
-YYLABEL(yynewstate)
+yynewstate:
 
   *++yyssp = yystate;
 
@@ -551,18 +500,18 @@ YYLABEL(yynewstate)
     fprintf(stderr, "Entering state %d\n", yystate);
 #endif
 
-  YYGOTO(yybackup);
-YYLABEL(yybackup)
+  goto yybackup;
+yybackup:
 
 /* Do appropriate processing given the current state.  */
 /* Read a lookahead token if we need one and don't already have one.  */
-/* YYLABEL(yyresume) */
+/* yyresume: */
 
   /* First try to decide what to do without reference to lookahead token.  */
 
   yyn = yypact[yystate];
   if (yyn == YYFLAG)
-    YYGOTO(yydefault);
+    goto yydefault;
 
   /* Not known => get a lookahead token if don't already have one.  */
 
@@ -610,7 +559,7 @@ YYLABEL(yybackup)
 
   yyn += yychar1;
   if (yyn < 0 || yyn > YYLAST || yycheck[yyn] != yychar1)
-    YYGOTO(yydefault);
+    goto yydefault;
 
   yyn = yytable[yyn];
 
@@ -624,12 +573,12 @@ YYLABEL(yybackup)
   if (yyn < 0)
     {
       if (yyn == YYFLAG)
-	YYGOTO(yyerrlab);
+	goto yyerrlab;
       yyn = -yyn;
-      YYGOTO(yyreduce);
+      goto yyreduce;
     }
   else if (yyn == 0)
-    YYGOTO(yyerrlab);
+    goto yyerrlab;
 
   if (yyn == YYFINAL)
     YYACCEPT;
@@ -654,17 +603,17 @@ YYLABEL(yybackup)
   if (yyerrstatus) yyerrstatus--;
 
   yystate = yyn;
-  YYGOTO(yynewstate);
+  goto yynewstate;
 
 /* Do the default action for the current state.  */
-YYLABEL(yydefault)
+yydefault:
 
   yyn = yydefact[yystate];
   if (yyn == 0)
-    YYGOTO(yyerrlab);
+    goto yyerrlab;
 
 /* Do a reduction.  yyn is the number of a rule to reduce with.  */
-YYLABEL(yyreduce)
+yyreduce:
   yylen = yyr2[yyn];
   if (yylen > 0)
     yyval = yyvsp[1-yylen]; /* implement default value of the action */
@@ -734,9 +683,9 @@ $   /* the action file gets copied in in place of this dollarsign  */
   else
     yystate = yydefgoto[yyn - YYNTBASE];
 
-  YYGOTO(yynewstate);
+  goto yynewstate;
 
-YYLABEL(yyerrlab)   /* here on detecting error */
+yyerrlab:   /* here on detecting error */
 
   if (! yyerrstatus)
     /* If not already recovering from an error, report this error.  */
@@ -787,8 +736,8 @@ YYLABEL(yyerrlab)   /* here on detecting error */
 	YY_@_ERROR("parse error");
     }
 
-  YYGOTO(yyerrlab1);
-YYLABEL(yyerrlab1)   /* here on error raised explicitly by an action */
+  goto yyerrlab1;
+yyerrlab1:   /* here on error raised explicitly by an action */
 
   if (yyerrstatus == 3)
     {
@@ -811,18 +760,18 @@ YYLABEL(yyerrlab1)   /* here on error raised explicitly by an action */
 
   yyerrstatus = 3;              /* Each real token shifted decrements this */
 
-  YYGOTO(yyerrhandle);
+  goto yyerrhandle;
 
-YYLABEL(yyerrdefault)  /* current state does not do anything special for the error token. */
+yyerrdefault:  /* current state does not do anything special for the error token. */
 
 #if 0
   /* This is wrong; only states that explicitly want error tokens
      should shift them.  */
   yyn = yydefact[yystate];  /* If its default is to accept any token, ok.  Otherwise pop it.*/
-  if (yyn) YYGOTO(yydefault);
+  if (yyn) goto yydefault;
 #endif
 
-YYLABEL(yyerrpop)   /* pop the current state because it cannot handle the error token */
+yyerrpop:   /* pop the current state because it cannot handle the error token */
 
   if (yyssp == yyss) YYABORT;
   yyvsp--;
@@ -842,26 +791,26 @@ YYLABEL(yyerrpop)   /* pop the current state because it cannot handle the error 
     }
 #endif
 
-YYLABEL(yyerrhandle)
+yyerrhandle:
 
   yyn = yypact[yystate];
   if (yyn == YYFLAG)
-    YYGOTO(yyerrdefault);
+    goto yyerrdefault;
 
   yyn += YYTERROR;
   if (yyn < 0 || yyn > YYLAST || yycheck[yyn] != YYTERROR)
-    YYGOTO(yyerrdefault);
+    goto yyerrdefault;
 
   yyn = yytable[yyn];
   if (yyn < 0)
     {
       if (yyn == YYFLAG)
-	YYGOTO(yyerrpop);
+	goto yyerrpop;
       yyn = -yyn;
-      YYGOTO(yyreduce);
+      goto yyreduce;
     }
   else if (yyn == 0)
-    YYGOTO(yyerrpop);
+    goto yyerrpop;
 
   if (yyn == YYFINAL)
     YYACCEPT;
@@ -877,9 +826,7 @@ YYLABEL(yyerrhandle)
 #endif
 
   yystate = yyn;
-  YYGOTO(yynewstate);
-/* end loop, in which YYGOTO may be used. */
-  YYENDGOTO
+  goto yynewstate;
 }
 
 /* END */

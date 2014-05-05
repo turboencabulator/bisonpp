@@ -43,15 +43,6 @@ $ /* %{ and %header{ and %union, during decl */
 #define yystype YY_@_STYPE
 #endif
 #endif
-/* use goto to be compatible */
-#ifndef YY_@_USE_GOTO
-#define YY_@_USE_GOTO 1
-#endif
-#endif
-
-/* use no goto to be clean in C++ */
-#ifndef YY_@_USE_GOTO
-#define YY_@_USE_GOTO 0
 #endif
 
 #ifndef YY_@_PURE
