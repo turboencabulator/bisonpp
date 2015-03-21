@@ -47,7 +47,6 @@
 	-{"BISON"} Defined to "1" in the code. used for conditional code. Don't redefine it.
 	-{"h_included"} Defined  in the code, and in the header. Used for include anti-reload. Don't redefine it.
 	-{"COMPATIBILITY"} Indicate if obsoleted defines are to be used and produced. If defined to 0, indicate no compatibility needed, else if defined to non-0, generate it. If it is undefined, default is to be compatible if classes are not used.
-	-{"USE_GOTO"} Indicates (if defined as 1) that "goto" are to be used  (for backward compatibility) in the parser function. By default "goto" are replaced with a "switch" construction, to avoid problems with some compilers that don't support "goto" and destructor in the same function block. If "COMPATIBILITY" is 1, and "USE_GOTO" is not defined, then "USE_GOTO" is defined to 1, to be compatible with older bison.
 	-{"USE_CONST_TOKEN"} Indicate (if defined as 1) that "static const int" are to be used  in C++, for token IDs. By default an enum is used to define the token IDs instead of  const.
 	-{"ENUM_TOKEN"} When "enum" are used instead of "static const int" for token IDs, this symbol define the name of the enum type. Defined to "yy_"'<parser_name>'"_enum_token" by default.
 	-{"PURE"} Indicate that "\%pure_parser" is asked... Don't redefine it.
@@ -61,8 +60,7 @@
 	-{"CHAR"} The lookahead token value variable name. Default "yychar". See "yychar" in bison.
 	-{"LEX"} The scanner function name. Default "yylex". See "yylex" in bison.
 	-{"PARSE"} The parser function name. Default "yyparse". See "yyparse" in bison.
-	-{"PARSE_PARAM"} The parser function parameters declaration. Default "void" in C++ or ANSIC, nothing if old C. In ANSIC and C++ contain the prototype. In old-C contain just the list of parameters name. Don't allows default value.
-	-{"PARSE_PARAM_DEF"} The parser function parameters definition, for old style C. Default nothing. For example to use an "int" parameter called "x", PARSE_PARAM is "x", and PARSE_PARAM_DEF is "int x;". In ANSIC or C++ it is unuseful and ignored.
+	-{"PARSE_PARAM"} The parser function parameters declaration. Default "void".
 	-{"ERROR"} The error function name. Default "yyerror". See "yyerror" in bison.
 	-{"NERRS"} The error count name. Default "yynerrs". See "yynerrs" in bison.
 	-{"DEBUG_FLAG"} The runtime debug flag. Default "yydebug". See "yydebug" in bison.

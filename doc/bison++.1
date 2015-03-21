@@ -49,8 +49,6 @@ Defined to \fB1\fP in the code\. used for conditional code\. Don't redefine it\.
 Defined in the code, and in the header\. Used for include anti\-reload\. Don't redefine it\.
 .IP "\\fBCOMPATIBILITY\\fP"
 Indicate if obsoleted defines are to be used and produced\. If defined to 0, indicate no compatibility needed, else if defined to non\-0, generate it\. If it is undefined, default is to be compatible if classes are not used\.
-.IP "\\fBUSE_GOTO\\fP"
-Indicates (if defined as 1) that \fBgoto\fP are to be used (for backward compatibility) in the parser function\. By default \fBgoto\fP are replaced with a \fBswitch\fP construction, to avoid problems with some compilers that don't support \fBgoto\fP and destructor in the same function block\. If \fBCOMPATIBILITY\fP is 1, and \fBUSE_GOTO\fP is not defined, then \fBUSE_GOTO\fP is defined to 1, to be compatible with older bison\.
 .IP "\\fBUSE_CONST_TOKEN\\fP"
 Indicate (if defined as 1) that \fBstatic const int\fP are to be used in C++, for token IDs\. By default an enum is used to define the token IDs instead of const\.
 .IP "\\fBENUM_TOKEN\\fP"
@@ -78,9 +76,7 @@ The scanner function name\. Default \fByylex\fP\. See \fByylex\fP in bison\.
 .IP "\\fBPARSE\\fP"
 The parser function name\. Default \fByyparse\fP\. See \fByyparse\fP in bison\.
 .IP "\\fBPARSE_PARAM\\fP"
-The parser function parameters declaration\. Default \fBvoid\fP in C++ or ANSIC, nothing if old C\. In ANSIC and C++ contain the prototype\. In old\-C contain just the list of parameters name\. Don't allows default value\.
-.IP "\\fBPARSE_PARAM_DEF\\fP"
-The parser function parameters definition, for old style C\. Default nothing\. For example to use an \fBint\fP parameter called \fBx\fP, PARSE_PARAM is \fBx\fP, and PARSE_PARAM_DEF is \fBint x;\fP\. In ANSIC or C++ it is unuseful and ignored\.
+The parser function parameters declaration\. Default \fBvoid\fP\.
 .IP "\\fBERROR\\fP"
 The error function name\. Default \fByyerror\fP\. See \fByyerror\fP in bison\.
 .IP "\\fBNERRS\\fP"
