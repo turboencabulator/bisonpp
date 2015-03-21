@@ -1,6 +1,6 @@
 .TH BISON++ 1 "3/3/93" "GNU and RDT" "COMMANDS" 
 .SH "NAME" 
-bison++ \- generate a parser in c or c++\.
+bison++ \- generate a parser in C or C++\.
 .SH "SYNOPSIS" 
 \fBbison++\fP [\fB\-dltvyVu\fP] [\fB\-b\fP \fIfile\-prefix\fP] [\fB\-p\fP \fIname\-prefix\fP] [\fB\-o\fP \fIoutfile\fP] [\fB\-h\fP \fIheaderfile\fP] [\fB\-S\fP \fIskeleton\fP] [\fB\-H\fP \fIheader\-skeleton\fP] [\fB\-\-debug\fP] [\fB\-\-defines\fP] [\fB\-\-fixed\-output\-files\fP] [\fB\-\-no\-lines\fP] [\fB\-\-verbose\fP] [\fB\-\-version\fP] [\fB\-\-yacc\fP] [\fB\-\-usage\fP] [\fB\-\-help\fP] [\fB\-\-file\-prefix=\fP\fIprefix\fP] [\fB\-\-name\-prefix=\fP\fIprefix\fP] [\fB\-\-skeleton=\fP\fIskeletonfile\fP] [\fB\-\-headerskeleton=\fP\fIheaderskeletonfile\fP] [\fB\-\-output=\fP\fIoutfile\fP] [\fB\-\-header\-name=\fP\fIheader\fP] \fIgrammar\-file\fP
 .SH "DESCRIPTION" 
@@ -8,12 +8,12 @@ Generate a parser\. Based on \fBbison\fP version 1\.19\. See \fBbison\fP(1) for 
 .PP
 You now generate a C++ class if you are compiling with a C++ compiler\. The generated header is far more rich than before, and is made from a skeleton\-header\. The code skeleton is also richer, and the generated code is less important compared to the skeletons\. It permit you to modify much things only by changing the two skeletons\.
 .PP
-In plain C, the \fBbison++\fP is compatible with standard \fBbison\fP\.
+In plain C, \fBbison++\fP is compatible with standard \fBbison\fP\.
 .SH "OPTIONS" 
 .\"bloc1[
 .IP "\\fB\\-\\-name\\-prefix=\\fP\\fIprefix\\fP"
 .IP "\\fB\\-p\\fP \\fIprefix\\fP"
-Set prefix of names of yylex,yyerror\. keeped for compatibility, but you should prefer \fB%define LEX \fP\fInewname\fP, and similar\.
+Set prefix of names of yylex,yyerror\. keeped for compatibility, but you should prefer \fB%define LEX\fP \fInewname\fP, and similar\.
 .IP "\\fB\\-\\-skeleton=\\fP\\fIskeleton\\fP"
 .IP "\\fB\\-S\\fP \\fIskeleton\\fP"
 Set filename of code skeleton\. Default is \fBbison\.cc\fP\.
@@ -25,12 +25,12 @@ Set filename of header skeleton\. Default is \fBbison\.h\fP\.
 Set filename of header skeleton\. Default is \fBy\.tab\.h\fP, or \fIprefix\fP\.h if option \fB\-b\fP is used or \fIc_basename\fP\.h if \fB\-o\fP is used\. \fB\.c\fP, \fB\.cc\fP, \fB\.C\fP, \fB\.cpp\fP, \fB\.cxx\fP options for output files are replaced by \fB\.h\fP for header name\.
 .\"bloc1]
 .SH "DECLARATIONS" 
-These are new declarations to put in the declaration section :
+These are new declarations to put in the declaration section:
 .\"bloc1[
 .IP "\\fB%name\\fP \\fIparser_name\\fP"
-Declare the name of this parser\. User for C++ class name, and to render many names unique\. default is \fBparse\fP\. Must be given before \fB%union\fP and \fB%define\fP, or never\.
+Declare the name of this parser\. Used for C++ class name, and to render many names unique\. default is \fBparse\fP\. Must be given before \fB%union\fP and \fB%define\fP, or never\.
 .IP "\\fB%define\\fP \\fIdefine_name\\fP \\fIcontent\\.\\.\\.\\fP"
-Declare a macro symbol in header and code\. The name of the symbol is \fBYY_\fP'\fIparser_name\fP'\fB_\fP'\fIdefine_name\fP'\. The content if given after, as with #define\. Newline can be escaped as with #define\. Many symbols are proposed for customisation\.
+Declare a macro symbol in header and code\. The name of the symbol is \fBYY_\fP'\fIparser_name\fP'\fB_\fP'\fIdefine_name\fP'\. The content is given after, as with #define\. Newline can be escaped as with #define\. Many symbols are proposed for customisation\.
 .IP "\\fB%union\\fP"
 as with bison generate a union for semantic type\. The difference is that the union is named \fByy_\fP'\fIparser_name\fP'\fB_stype\fP\.
 .IP "\\fB%pure_parser\\fP"
@@ -39,18 +39,18 @@ As with bison in C\. In C++ generate a parser where yylval, and yylloc (if neede
 Like \fB%{\fP, but include this text both in the header, and in the code\. End with \fB%}\fP\. When put in declaration section, the text is added before the definitions\. It can be put in the last section so that the text is added after all definition in the header, and in the last section at the current position in the code\.
 .\"bloc1]
 .PP
-Note that the order of these declaration is important, since they are translated into preprocessor sympols, typedef or code depending on their type\. For example use \fB%name\fP before any \fB%define\fP, since the name is needed to compose the name of the define symbols\. Order of \fB%header\fP and \fB%union\fP is important, since type may be undefined\.
+Note that the order of these declaration is important, since they are translated into preprocessor symbols, typedef or code depending on their type\. For example use \fB%name\fP before any \fB%define\fP, since the name is needed to compose the name of the define symbols\. Order of \fB%header\fP and \fB%union\fP is important, since type may be undefined\.
 .SH "DECLARATION DEFINE SYMBOLS" 
-These are the symbols you can define with \fB%define\fP in declaration section, or that are already defined\. Remind that they are replaced by a preprocessor \fB#define YY_\fP'\fIparser_name\fP'\fB_\fP'\fIname\fP\.
+These are the symbols you can define with \fB%define\fP in declaration section, or that are already defined\. Remind that they are replaced by a preprocessor \fB#define YY_\fP'\fIparser_name\fP'\fB_\fP'\fIname\fP'\.
 .\"bloc1[
 .IP "\\fBBISON\\fP"
-defined to \fB1\fP in the code\. used for conditional code\. Don't redefine it\.
+Defined to \fB1\fP in the code\. used for conditional code\. Don't redefine it\.
 .IP "\\fBh_included\\fP"
-defined in the code, and in the header\. used for include anti\-reload\. Don't redefine it\.
+Defined in the code, and in the header\. Used for include anti\-reload\. Don't redefine it\.
 .IP "\\fBCOMPATIBILITY\\fP"
 Indicate if obsoleted defines are to be used and produced\. If defined to 0, indicate no compatibility needed, else if defined to non\-0, generate it\. If it is undefined, default is to be compatible if classes are not used\.
 .IP "\\fBUSE_GOTO\\fP"
-Indicates (if defined as 1) that \fBgoto\fP are to be used (for backward compatibility) in the parser function\. By default \fBgoto\fP are replaced with a \fBswitch\fP construction, to avoid problems with some compiler that don't support \fBgoto\fP and destructor in the same function block\. If \fBCOMPATIBILITY\fP is 1, and \fBUSE_GOTO\fP is not defined, then \fBUSE_GOTO\fP is defined to 1, to be compatible with older bison\.
+Indicates (if defined as 1) that \fBgoto\fP are to be used (for backward compatibility) in the parser function\. By default \fBgoto\fP are replaced with a \fBswitch\fP construction, to avoid problems with some compilers that don't support \fBgoto\fP and destructor in the same function block\. If \fBCOMPATIBILITY\fP is 1, and \fBUSE_GOTO\fP is not defined, then \fBUSE_GOTO\fP is defined to 1, to be compatible with older bison\.
 .IP "\\fBUSE_CONST_TOKEN\\fP"
 Indicate (if defined as 1) that \fBstatic const int\fP are to be used in C++, for token IDs\. By default an enum is used to define the token IDs instead of const\.
 .IP "\\fBENUM_TOKEN\\fP"
@@ -58,15 +58,15 @@ When \fBenum\fP are used instead of \fBstatic const int\fP for token IDs, this s
 .IP "\\fBPURE\\fP"
 Indicate that \fB%pure_parser\fP is asked\.\.\. Don't redefine it\.
 .IP "\\fBLSP_NEEDED\\fP"
-if defined indicate that @ construct is used, so \fBLLOC\fP stack is needed\. Can be defined to force use of location stack\.
+If defined indicate that @ construct is used, so \fBLLOC\fP stack is needed\. Can be defined to force use of location stack\.
 .IP "\\fBDEBUG\\fP"
-if defined to non\-0 activate debugging code\. See\fB YYDEBUG\fP in bison\.
+If defined to non\-0 activate debugging code\. See\fB YYDEBUG\fP in bison\.
 .IP "\\fBERROR_VERBOSE\\fP"
-if defined activate dump parser stack when error append\.
+If defined activate dump parser stack when error append\.
 .IP "\\fBSTYPE\\fP"
-the type of the semantic value of token\. defined by \fB%union\fP\. default is \fBint\fP\. See \fBYYSTYPE\fP in bison\. Don't redefine it, if you use a \fB%union\fP\.
+The type of the semantic value of token\. defined by \fB%union\fP\. default is \fBint\fP\. See \fBYYSTYPE\fP in bison\. Don't redefine it, if you use a \fB%union\fP\.
 .IP "\\fBLTYPE\\fP"
-The token location type\. If needed default is \fByyltype\fP\. See \fBYYLTYPE\fP in bison\. default \fByyltype\fP is a typedef and struct defined as in old bison\.
+The token location type\. If needed default is \fByyltype\fP\. See \fBYYLTYPE\fP in bison\. Default \fByyltype\fP is a typedef and struct defined as in old bison\.
 .IP "\\fBLLOC\\fP"
 The token location variable name\. If needed, default is \fByylloc\fP\. See \fByylloc\fP in bison\.
 .IP "\\fBLVAL\\fP"
@@ -78,7 +78,7 @@ The scanner function name\. Default \fByylex\fP\. See \fByylex\fP in bison\.
 .IP "\\fBPARSE\\fP"
 The parser function name\. Default \fByyparse\fP\. See \fByyparse\fP in bison\.
 .IP "\\fBPARSE_PARAM\\fP"
-The parser function parameters declaration\. Default \fBvoid\fP in C++ or ANSIC, nothing if old C\. In ANSIC and C++ contain the prototype\. In old\-C comtaim just the list of parameters name\. Don't allows default value\.
+The parser function parameters declaration\. Default \fBvoid\fP in C++ or ANSIC, nothing if old C\. In ANSIC and C++ contain the prototype\. In old\-C contain just the list of parameters name\. Don't allows default value\.
 .IP "\\fBPARSE_PARAM_DEF\\fP"
 The parser function parameters definition, for old style C\. Default nothing\. For example to use an \fBint\fP parameter called \fBx\fP, PARSE_PARAM is \fBx\fP, and PARSE_PARAM_DEF is \fBint x;\fP\. In ANSIC or C++ it is unuseful and ignored\.
 .IP "\\fBERROR\\fP"
@@ -98,13 +98,13 @@ The inheritance list\. Don't forget the \fB:\fP before, if not empty list\.
 .IP "\\fBMEMBERS\\fP"
 List of members to add to the class definition, before ending it\.
 .IP "\\fBLEX_BODY\\fP"
-The scanner member function boby\. May be defined to \fB=0\fP for pure function, or to an inline body\.
+The scanner member function body\. May be defined to \fB=0\fP for pure function, or to an inline body\.
 .IP "\\fBERROR_BODY\\fP"
-The error member function boby\. May be defined to \fB=0\fP for pure function, or to an inline body\.
+The error member function body\. May be defined to \fB=0\fP for pure function, or to an inline body\.
 .IP "\\fBCONSTRUCTOR_PARAM\\fP"
-List of parameters of the constructor\. Dont allows default value\.
+List of parameters of the constructor\. Don't allows default value\.
 .IP "\\fBCONSTRUCTOR_INIT\\fP"
-List of initialisation befor constructor call\. If not empty dont't forget the \fB:\fP before list of initialisation\.
+List of initialisation befor constructor call\. If not empty don't forget the \fB:\fP before list of initialisation\.
 .IP "\\fBCONSTRUCTOR_CODE\\fP"
 Code added after internal initialisation in constructor\.
 .\"bloc1]
@@ -140,7 +140,7 @@ instead of expand with alloca, realloc manualy or raise error\.
 indicate that class will be produced\. Default if C++\.
 .\"bloc1]
 .SH "C++ CLASS GENERATED" 
-To simplify the notation, we note \fB%SYMBOLNAME\fP the preprocessor symbol generated with a \fB%define\fP of this name\. In fact see the use of \fB%define\fP for it's real name\.
+To simplify the notation, we note \fB%SYMBOLNAME\fP the preprocessor symbol generated with a \fB%define\fP of this name\. In fact see the use of \fB%define\fP for its real name\.
 .PP
 Note that there is sometime symbols that differ from only an underscore \fB_\fP, like \fByywrap\fP and \fByy_wrap\fP\. They are much different\. In this case \fByy_wrap()\fP is a virtual member function, and \fByywrap()\fP is a macro\.
 .SS "General Class declaration" 
@@ -185,11 +185,11 @@ virtual void %ERROR(char *msg) %ERROR_BODY;
 #ifdef %PURE
 .\"bloc1[
 .IP
-// if %PURE , we must pass the value and (eventually) the location explicitely
+// if %PURE , we must pass the value and (eventually) the location explicitly
 .IP
 #ifdef %LSP_NEEDED
 .IP
-// if and only if %LSP_NEEDED , we must pass the location explicitely
+// if and only if %LSP_NEEDED , we must pass the location explicitly
 .IP
 virtual int %LEX (%STYPE *%LVAL,%LTYPE *%LLOC) %LEX_BODY;
 .IP
@@ -203,7 +203,7 @@ virtual int %LEX (%STYPE *%LVAL) %LEX_BODY;
 #else
 .\"bloc1[
 .IP
-// if not %PURE , we must declare member to store the value and (eventually) the location explicitely
+// if not %PURE , we must declare member to store the value and (eventually) the location explicitly
 .IP
 // if not %PURE ,%NERRS and %CHAR are not local variable to %PARSE, so must be member
 .IP
@@ -382,13 +382,13 @@ yydebug=0;
 .PP
 };
 .SH "USAGE" 
-Should replace \fBbison\fP, because it generate a far more customisable parser, still beeing compatible\.
+Should replace \fBbison\fP, because it generates a far more customisable parser, still being compatible\.
 .PP
 You should always use the header facility\.
 .PP
 Use it with \fBflex++\fP (same author)\.
-.SH "EXEMPLES" 
-This man page has been produced through a parser made in C++ with this version of \fBbison\fP and our version of \fBflex++\fP (same author)\.
+.SH "EXAMPLES" 
+This man page has been produced through a parser made in C++ with this version of \fBbison++\fP and our version of \fBflex++\fP (same author)\.
 .SH "FILES" 
 .\"bloc1[
 .IP "\\fBbison\\.cc\\fP"
@@ -404,29 +404,29 @@ old main skeleton for semantic parser\. Not adapted to this version\. Kept for f
 \fBbison\fP(1), \fBbison\.info\fP (use texinfo), \fBflex++\fP(1)\.
 .SH "DOCUMENTATION" 
 .SH "BUGS" 
-Tell us more !
+Tell us more!
 .PP
-The \fB%semantic_parser\fP is no more supported\. If you want to use it, adapt the skeletons, and maybe \fBbison++\fP generator itself\. The reason is that it seems unused, unuseful, not documented, and too complex for us to support\. tell us if you use, need, or understand it\.
+The \fB%semantic_parser\fP is no more supported\. If you want to use it, adapt the skeletons, and maybe \fBbison++\fP generator itself\. The reason is that it seems unused, unuseful, not documented, and too complex for us to support\. Tell us if you use, need, or understand it\.
 .PP
-Header is not included in the parser code\. Change made in the generated header are not used in the parser code, even if you include it volontarily, since it is guarded against re\-include\. So don't modify it\.
+Header is not included in the parser code\. Change made in the generated header are not used in the parser code, even if you include it voluntarily, since it is guarded against re\-include\. So don't modify it\.
 .PP
 For the same reasons, if you modify the header skeleton, or the code skeleton, report the changes in the other skeleton if applicable\. If not done, incoherent declarations may lead to unpredictable result\.
 .PP
 Use of defines for \fBYYLTYPE\fP, \fBYYSTYPE\fP, \fBYYDEBUG\fP is supported for backward compatibility in C, but should not be used with new features, as \fB%defines\fP or C++ classes\. You can define them, and use them as with old \fBbison\fP in C only\.
 .PP
-Parameters are richer than before, and nothing is removed\. POSIX compliance can be enforced by not using extensions\. If you want to forbide them, there is a good job !
-.SH "FUTUR WORKS" 
-tell us !
+Parameters are richer than before, and nothing is removed\. POSIX compliance can be enforced by not using extensions\. If you want to forbid them, there is a good job!
+.SH "FUTURE WORKS" 
+Tell us!
 .PP
-Support semantic parser\. Is it really used ?
+Support semantic parser\. Is it really used?
 .PP
-POSIX compliance\. is'nt it good now ?
+POSIX compliance\. isn't it good now?
 .PP
-Use lex and yacc (flex/bison) to generate the scanner/parser\. It would be comfortable for futur works, though very complicated\. Who feel it good ?
+Use lex and yacc (flex/bison) to generate the scanner/parser\. It would be comfortable for future works, though very complicated\. Who feels it good?
 .PP
-\fBiostream\fP : this is a great demand\. this work will be done as soon as possible\. The virtual members permit such work still easily\.
+\fBiostream\fP: This is a great demand\. This work will be done as soon as possible\. The virtual members permit such work still easily\.
 .SH "INSTALLATION" 
-With this install the executable is named bison++\. rename it bison if you want, because it could replace \fBbison\fP\.
+With this install the executable is named bison++\. Rename it bison if you want, because it could replace \fBbison\fP\.
 .SH "TESTS" 
 .SH "AUTHORS" 
 Alain Coe\*:tmeur (coetmeur@icdc\.fr), R&D department (RDT) , Informatique\-CDC, France\.
