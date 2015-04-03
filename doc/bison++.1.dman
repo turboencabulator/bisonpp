@@ -26,14 +26,10 @@
 	You now generate a C++ class if you are compiling with a C++ compiler. The generated header is far more rich than before, and is made from a skeleton-header. The code skeleton is also richer, and the generated code is less important compared to the skeletons. It permit you to modify much things only by changing the two skeletons.
 	In plain C, "bison++" is compatible with standard "bison".
 :SECTION "OPTIONS"
-	-{"--name-prefix="<prefix>} 
-	-{"-p" <prefix>} Set prefix of names of yylex,yyerror. keeped for compatibility, but you should prefer "\%define LEX" <newname>, and similar.
-	-{"--skeleton="<skeleton>} 
-	-{"-S" <skeleton>} Set filename of code skeleton. Default is "bison.cc".
-	-{"--headerskeleton="<header-skeleton>} 
-	-{"-H" <header-skeleton>} Set filename of header skeleton. Default is "bison.h".
-	-{"--header-name="<header>} 
-	-{"-h" <header>} Set filename of header skeleton. Default is "y.tab.h", or <prefix>.h if option "-b" is used or <c_basename>.h if "-o" is used. ".c", ".cc", ".C", ".cpp", ".cxx" options for output files are replaced by ".h" for header name.
+	-{"--name-prefix="<prefix>} {"-p" <prefix>} Set prefix of names of yylex,yyerror. keeped for compatibility, but you should prefer "\%define LEX" <newname>, and similar.
+	-{"--skeleton="<skeleton>} {"-S" <skeleton>} Set filename of code skeleton. Default is "bison.cc".
+	-{"--headerskeleton="<header-skeleton>} {"-H" <header-skeleton>} Set filename of header skeleton. Default is "bison.h".
+	-{"--header-name="<header>} {"-h" <header>} Set filename of header skeleton. Default is "y.tab.h", or <prefix>.h if option "-b" is used or <c_basename>.h if "-o" is used. ".c", ".cc", ".C", ".cpp", ".cxx" options for output files are replaced by ".h" for header name.
 :SECTION "DECLARATIONS"
 	These are new declarations to put in the declaration section:
 	-{"\%name" <parser_name>} Declare the name of this parser. Used for C++ class name, and to render many names unique. default is "parse". Must be given before "\%union" and "\%define", or never.

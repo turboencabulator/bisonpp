@@ -12,16 +12,24 @@ In plain C, \fBbison++\fP is compatible with standard \fBbison\fP\.
 .SH "OPTIONS" 
 .\"bloc1[
 .IP "\\fB\\-\\-name\\-prefix=\\fP\\fIprefix\\fP"
+.PD 0
 .IP "\\fB\\-p\\fP \\fIprefix\\fP"
+.PD
 Set prefix of names of yylex,yyerror\. keeped for compatibility, but you should prefer \fB%define LEX\fP \fInewname\fP, and similar\.
 .IP "\\fB\\-\\-skeleton=\\fP\\fIskeleton\\fP"
+.PD 0
 .IP "\\fB\\-S\\fP \\fIskeleton\\fP"
+.PD
 Set filename of code skeleton\. Default is \fBbison\.cc\fP\.
 .IP "\\fB\\-\\-headerskeleton=\\fP\\fIheader\\-skeleton\\fP"
+.PD 0
 .IP "\\fB\\-H\\fP \\fIheader\\-skeleton\\fP"
+.PD
 Set filename of header skeleton\. Default is \fBbison\.h\fP\.
 .IP "\\fB\\-\\-header\\-name=\\fP\\fIheader\\fP"
+.PD 0
 .IP "\\fB\\-h\\fP \\fIheader\\fP"
+.PD
 Set filename of header skeleton\. Default is \fBy\.tab\.h\fP, or \fIprefix\fP\.h if option \fB\-b\fP is used or \fIc_basename\fP\.h if \fB\-o\fP is used\. \fB\.c\fP, \fB\.cc\fP, \fB\.C\fP, \fB\.cpp\fP, \fB\.cxx\fP options for output files are replaced by \fB\.h\fP for header name\.
 .\"bloc1]
 .SH "DECLARATIONS" 
