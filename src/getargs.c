@@ -101,7 +101,7 @@ getargs(argc, argv)
 	  break;
 
 	case 'V':
-	  printf("%s", version_string);
+	  printf("%s\n", version_string);
 	  exit(0);
 
 	case 'v':
