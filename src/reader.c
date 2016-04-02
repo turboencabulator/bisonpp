@@ -777,13 +777,17 @@ parse_union_decl()
 	  count--;
 	  if (count == 0)
 	    { set_parser_name(NULL); /* if undef, use default */
-	      fprintf(ftable,
-               " yy_%s_stype;\n#define YY_%s_STYPE yy_%s_stype\n",
-               parser_name,parser_name,parser_name);
+	      fprintf(ftable, " yy_%s_stype;\n", parser_name);
+	      if (!nolinesflag)
+		fprintf(ftable, "#line @\n");
+	      fprintf(ftable, "#define YY_%s_STYPE yy_%s_stype\n", parser_name, parser_name);
 	      if (definesflag)
-		fprintf(fdefines,
-               " yy_%s_stype;\n#define YY_%s_STYPE yy_%s_stype\n",
-               parser_name,parser_name,parser_name);
+		{
+		  fprintf(fdefines, " yy_%s_stype;\n", parser_name);
+		  if (!nolinesflag)
+		    fprintf(fdefines, "#line @\n");
+		  fprintf(fdefines, "#define YY_%s_STYPE yy_%s_stype\n", parser_name, parser_name);
+		}
 	      /* JF don't choke on trailing semi */
 	      c=skip_white_space();
 	      if(c!=';') ungetc(c,finput);
@@ -1864,9 +1868,15 @@ parse_define()
  int after_backslash;
  read_a_name(name,sizeof(name));
  set_parser_name(NULL);
+ if (!nolinesflag)
+  fprintf(ftable,"#line %d \"%s\"\n", lineno, quoted_filename(infile));
  fprintf(ftable,"#define YY_%s_%s",parser_name,name);
  if (definesflag)
+  {
+   if (!nolinesflag)
+    fprintf(fdefines,"#line %d \"%s\"\n", lineno, quoted_filename(infile));
    fprintf(fdefines,"#define YY_%s_%s",parser_name,name);
+  }
  for(after_backslash=0,c=getc(finput);
      (after_backslash || c!='\n');
      c=getc(finput))
