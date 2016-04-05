@@ -44,17 +44,7 @@ $ /* %{ and %header{ and %union, during decl */
 #endif
 #endif
 #endif
-
-#ifndef YY_@_PURE
-$/* YY_@_PURE */
-#endif
-$/* prefix */
-#ifndef YY_@_DEBUG
-$/* YY_@_DEBUG */
-#endif
-#ifndef YY_@_LSP_NEEDED
-$ /* YY_@_LSP_NEEDED*/
-#endif
+$
 /* DEFAULT LTYPE*/
 #ifdef YY_@_LSP_NEEDED
 #ifndef YY_@_LTYPE
@@ -106,20 +96,11 @@ typedef
 #define YY_@_PARSE_PARAM void
 #endif
 
-/* TOKEN C */
-#ifndef YY_USE_CLASS
-
-#ifndef YY_@_PURE
-extern YY_@_STYPE YY_@_LVAL;
-#endif
-
-$ /* #defines token */
-/* after #define tokens, before const tokens S5*/
-#else
+#ifdef YY_USE_CLASS
+/* CLASS */
 #ifndef YY_@_CLASS
 #define YY_@_CLASS @
 #endif
-
 #ifndef YY_@_INHERIT
 #define YY_@_INHERIT
 #endif
@@ -150,14 +131,7 @@ $ /* #defines token */
 class YY_@_CLASS YY_@_INHERIT
 {
 public:
-#if YY_@_USE_CONST_TOKEN != 0
-/* static const int token ... */
-$ /* decl const */
-#else
-enum YY_@_ENUM_TOKEN { YY_@_NULL_TOKEN=0
-$ /* enum token */
-     }; /* end of enum declaration */
-#endif
+$ /* tokens */
 public:
  int YY_@_PARSE(YY_@_PARSE_PARAM);
  virtual void YY_@_ERROR(const char *msg) YY_@_ERROR_BODY;
@@ -186,7 +160,12 @@ public:
  YY_@_MEMBERS
 };
 /* other declare folow */
+#else
+#ifndef YY_@_PURE
+extern YY_@_STYPE YY_@_LVAL;
 #endif
+#endif
+$ /* #define tokens */
 
 
 #if YY_@_COMPATIBILITY != 0

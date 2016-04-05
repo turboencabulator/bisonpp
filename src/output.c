@@ -221,16 +221,16 @@ output_headers()
   output_section(fparser,ftable);
   if (pure_parser)
     {
-     fprintf(ftable, "#define YY_%s_PURE 1\n",parser_name);
-     if(definesflag) fprintf(fdefines, "#define YY_%s_PURE 1\n\n",parser_name);
+      fprintf(ftable, "#ifndef YY_%s_PURE\n", parser_name);
+      fprintf(ftable, "#define YY_%s_PURE 1\n", parser_name);
+      fprintf(ftable, "#endif\n");
     }
-  /* start writing the guard and action files, if they are needed.  */
-  if (semantic_parser)
-    fprintf(fguard, GUARDSTR, attrsfile);
-  fprintf(faction, (semantic_parser ? ACTSTR : ACTSTR_SIMPLE), attrsfile);
-  if(definesflag) output_section(fhskel,fdefines);
-  output_section(fparser,ftable);
-
+  if (pure_parser && definesflag)
+    {
+      fprintf(fdefines, "#ifndef YY_%s_PURE\n", parser_name);
+      fprintf(fdefines, "#define YY_%s_PURE 1\n", parser_name);
+      fprintf(fdefines, "#endif\n");
+    }
 
   /* Rename certain symbols if -p was specified.  */
   if (spec_name_prefix)
@@ -245,7 +245,7 @@ output_headers()
           parser_name, spec_name_prefix);
       fprintf(ftable, "#define YY_%s_CHAR %schar\n",
           parser_name, spec_name_prefix);
-      fprintf(ftable, "#define YY_%s_DEBUG %sdebug\n",
+      fprintf(ftable, "#define YY_%s_DEBUG_FLAG %sdebug\n",
           parser_name, spec_name_prefix);
     }
   if (spec_name_prefix && definesflag)
@@ -260,45 +260,49 @@ output_headers()
           parser_name, spec_name_prefix);
       fprintf(fdefines, "#define YY_%s_CHAR %schar\n",
           parser_name, spec_name_prefix);
-      fprintf(fdefines, "#define YY_%s_DEBUG %sdebug\n",
+      fprintf(fdefines, "#define YY_%s_DEBUG_FLAG %sdebug\n",
           parser_name, spec_name_prefix);
     }
 
+  /* start writing the guard and action files, if they are needed.  */
+  if (semantic_parser)
+    fprintf(fguard, GUARDSTR, attrsfile);
+  fprintf(faction, (semantic_parser ? ACTSTR : ACTSTR_SIMPLE), attrsfile);
 }
 
 
 void
 output_trailers()
 {
-  if(definesflag) output_section(fhskel,fdefines);
-  output_section(fparser,ftable);
   /* output the definition of YYLTYPE into the fattrs and fdefines files.  */
-  if(debugflag)
-   {fprintf(ftable,
-    "#define YY_%s_DEBUG %d\n"
-	    ,parser_name,!!debugflag);
-    if (definesflag)
-     fprintf(fdefines,
-      "#define YY_%s_DEBUG %d\n",
-            parser_name,!!debugflag);
+  if (debugflag)
+    {
+      fprintf(ftable, "#ifndef YY_%s_DEBUG\n", parser_name);
+      fprintf(ftable, "#define YY_%s_DEBUG 1\n", parser_name);
+      fprintf(ftable, "#endif\n");
     }
-  if(definesflag) output_section(fhskel,fdefines);
-  output_section(fparser,ftable);
+  if (debugflag && definesflag)
+    {
+      fprintf(fdefines, "#ifndef YY_%s_DEBUG\n", parser_name);
+      fprintf(fdefines, "#define YY_%s_DEBUG 1\n", parser_name);
+      fprintf(fdefines, "#endif\n");
+    }
   /* Now we know whether we need the line-number stack.
      If we do, write its type into the .tab.h file.  */
   if (yylsp_needed)
     {
      /* fattrs winds up in the .tab.c file, before bison.simple.  */
-      fprintf(ftable, "#define YYLSP_%s_NEEDED\n",parser_name);
-      if (debugflag)
-
-      if (definesflag)
-	{
-         fprintf(fdefines,
-             "#define YY_%s_LSP_NEEDED\n",
-              parser_name);
-        }
+      fprintf(ftable, "#ifndef YY_%s_LSP_NEEDED\n", parser_name);
+      fprintf(ftable, "#define YY_%s_LSP_NEEDED\n", parser_name);
+      fprintf(ftable, "#endif\n");
     }
+  if (yylsp_needed && definesflag)
+    {
+      fprintf(fdefines, "#ifndef YY_%s_LSP_NEEDED\n", parser_name);
+      fprintf(fdefines, "#define YY_%s_LSP_NEEDED\n", parser_name);
+      fprintf(fdefines, "#endif\n");
+    }
+
   if (semantic_parser)
     {
       fprintf(fguard, "\n    }\n}\n");
@@ -1527,30 +1531,39 @@ free_reductions()
     FREE(rp);
   }
 }
-void output_token_defines();
-void output_token_const_def();
-void output_token_const_decl();
 
-void output_about_token()
+
+void
+output_about_token()
 { register int i;
 
   output_section(fparser,ftable);
-  output_token_defines(ftable);
-  output_section(fparser,ftable);
+  fprintf(ftable, "#if YY_%s_USE_CONST_TOKEN != 0\n", parser_name);
   output_token_const_decl(ftable);
-  output_section(fparser,ftable);  /* new section */
-  output_token_enum(ftable); /* enum */
+  fprintf(ftable, "#else\n");
+  output_token_enum(ftable);
+  fprintf(ftable, "#endif\n");
   output_section(fparser,ftable);
+  fprintf(ftable, "#if YY_%s_USE_CONST_TOKEN != 0\n", parser_name);
   output_token_const_def(ftable);
+  fprintf(ftable, "#endif\n");
+  output_section(fparser,ftable);
+  fprintf(ftable, "#ifndef YY_USE_CLASS\n");
+  output_token_defines(ftable);
+  fprintf(ftable, "#endif\n");
   output_section(fparser,ftable);
   if (definesflag)
     {
       output_section(fhskel,fdefines);
-      output_token_defines(fdefines);
-      output_section(fhskel,fdefines);
+      fprintf(fdefines, "#if YY_%s_USE_CONST_TOKEN != 0\n", parser_name);
       output_token_const_decl(fdefines);
-      output_section(fhskel,fdefines);  /* new section */
-      output_token_enum(fdefines); /* enum */
+      fprintf(fdefines, "#else\n");
+      output_token_enum(fdefines);
+      fprintf(fdefines, "#endif\n");
+      output_section(fhskel,fdefines);
+      fprintf(fdefines, "#ifndef YY_USE_CLASS\n");
+      output_token_defines(fdefines);
+      fprintf(fdefines, "#endif\n");
       output_section(fhskel,fdefines);
       if (semantic_parser)
 	for (i = ntokens; i < nsyms; i++)
@@ -1561,40 +1574,55 @@ void output_about_token()
 	  }
     }
 
-};
-void output_token_defines(file)
-FILE *file;
-{output_token_defines_fmt(file,"#define\t%s\t%d\n",0);
- if (semantic_parser)
-  output_token_defines_fmt(file,"#define\tT%s\t%d\n",1);
-};
-void output_token_const_def(file)
-FILE *file;
-{char line[256];
- sprintf(line,"const int YY_%s_CLASS::%%s=%%d;\n",parser_name);
- output_token_defines_fmt(file,line,0);
- sprintf(line,"const int YY_%s_CLASS::T%%s=%%d;\n",parser_name);
- if (semantic_parser)
-  output_token_defines_fmt(file,line,1);
-};
-void output_token_const_decl(file)
+}
+
+
+void
+output_token_defines(file)
 FILE *file;
 {
- output_token_defines_fmt(file,"static const int %s;\n",0);
- if (semantic_parser)
-  output_token_defines_fmt(file,"static const int T%s;\n",1);
-};
-/* create a list like
-	,FIRST_TOKEN=256
-	,SECOND_TOKEN=257
-*/
-void output_token_enum(file)
+  output_token_defines_fmt(file, "#define %s %d\n", 0);
+  if (semantic_parser)
+    output_token_defines_fmt(file, "#define T%s %d\n", 1);
+}
+
+
+void
+output_token_const_def(file)
 FILE *file;
 {
- output_token_defines_fmt(file,"\t,%s=%d\n",0);
- if (semantic_parser) /* just for compatibility with semantic parser */
-  output_token_defines_fmt(file,"\t,T%s=%d\n",1);
-};
+  char line[256];
+  sprintf(line, "const int YY_%s_CLASS::%%s = %%d;\n", parser_name);
+  output_token_defines_fmt(file, line, 0);
+  if (semantic_parser)
+    {
+      sprintf(line, "const int YY_%s_CLASS::T%%s = %%d;\n", parser_name);
+      output_token_defines_fmt(file, line, 1);
+    }
+}
+
+
+void
+output_token_const_decl(file)
+FILE *file;
+{
+  output_token_defines_fmt(file, "\tstatic const int %s;\n", 0);
+  if (semantic_parser)
+    output_token_defines_fmt(file, "\tstatic const int T%s;\n", 1);
+}
+
+
+void
+output_token_enum(file)
+FILE *file;
+{
+  fprintf(file, "\tenum YY_%s_ENUM_TOKEN {\n", parser_name);
+  fprintf(file, "\t\tYY_%s_NULL_TOKEN = 0\n", parser_name, parser_name);
+  output_token_defines_fmt(file, "\t\t,%s = %d\n", 0);
+  if (semantic_parser) /* just for compatibility with semantic parser */
+    output_token_defines_fmt(file, "\t\t,T%s = %d\n", 1);
+  fprintf(file, "\t};\n", parser_name, parser_name);
+}
 
 
 void
@@ -1627,8 +1655,6 @@ int notrans;
 	    }
 	}
     }
-
-  putc('\n', file);
 }
 
 
