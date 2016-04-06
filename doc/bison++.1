@@ -2,7 +2,11 @@
 .SH "NAME" 
 bison++ \- generate a parser in C or C++\.
 .SH "SYNOPSIS" 
-\fBbison++\fP [\fB\-dltvyVu\fP] [\fB\-b\fP \fIfile\-prefix\fP] [\fB\-p\fP \fIname\-prefix\fP] [\fB\-o\fP \fIoutfile\fP] [\fB\-h\fP \fIheaderfile\fP] [\fB\-S\fP \fIskeleton\fP] [\fB\-H\fP \fIheader\-skeleton\fP] [\fB\-\-debug\fP] [\fB\-\-defines\fP] [\fB\-\-fixed\-output\-files\fP] [\fB\-\-no\-lines\fP] [\fB\-\-verbose\fP] [\fB\-\-version\fP] [\fB\-\-yacc\fP] [\fB\-\-usage\fP] [\fB\-\-help\fP] [\fB\-\-file\-prefix=\fP\fIprefix\fP] [\fB\-\-name\-prefix=\fP\fIprefix\fP] [\fB\-\-skeleton=\fP\fIskeletonfile\fP] [\fB\-\-headerskeleton=\fP\fIheaderskeletonfile\fP] [\fB\-\-output=\fP\fIoutfile\fP] [\fB\-\-header\-name=\fP\fIheader\fP] \fIgrammar\-file\fP
+\fBbison++\fP [\fB\-v\fP | \fB\-\-verbose\fP] [\fB\-y\fP | \fB\-\-yacc\fP | \fB\-\-fixed\-output\-files\fP] [\fB\-t\fP | \fB\-\-debug\fP] [\fB\-l\fP | \fB\-\-no\-lines\fP] [\fB\-b\fP, \fB\-\-file\-prefix\fP=\fIprefix\fP] [\fB\-p\fP, \fB\-\-name\-prefix\fP=\fIprefix\fP] [\fB\-S\fP, \fB\-\-skeleton\fP=\fIskeletonfile\fP] [\fB\-H\fP, \fB\-\-headerskeleton\fP=\fIheaderskeletonfile\fP] [\fB\-o\fP, \fB\-\-output\fP=\fIoutfile\fP] [\fB\-d\fP | \fB\-\-defines\fP] [\fB\-h\fP, \fB\-\-header\-file\fP=\fIheaderfile\fP] \fIgrammar\-file\fP
+.PP
+\fBbison++\fP [\fB\-V\fP | \fB\-\-version\fP]
+.PP
+\fBbison++\fP [\fB\-u\fP | \fB\-\-usage\fP | \fB\-\-help\fP]
 .SH "DESCRIPTION" 
 Generate a parser\. Based on \fBbison\fP version 1\.19\. See \fBbison\fP(1) for details of main functionality\. Only changes are reported here\.
 .PP
@@ -26,7 +30,7 @@ Set filename of code skeleton\. Default is \fBbison\.cc\fP\.
 .IP "\\fB\\-H\\fP \\fIheader\\-skeleton\\fP"
 .PD
 Set filename of header skeleton\. Default is \fBbison\.h\fP\.
-.IP "\\fB\\-\\-header\\-name=\\fP\\fIheader\\fP"
+.IP "\\fB\\-\\-header\\-file=\\fP\\fIheader\\fP"
 .PD 0
 .IP "\\fB\\-h\\fP \\fIheader\\fP"
 .PD

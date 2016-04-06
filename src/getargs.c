@@ -38,22 +38,22 @@ extern void fatal();
 
 struct option longopts[] =
 {
-  {"debug", 0, &debugflag, 1},
-  {"defines", 0, &definesflag, 1},
+  {"verbose", 0, 0, 'v'},
+  {"yacc", 0, 0, 'y'},
+  {"fixed-output-files", 0, 0, 'y'},
+  {"debug", 0, 0, 't'},
+  {"no-lines", 0, 0, 'l'},
   {"file-prefix", 1, 0, 'b'},
-  {"fixed-output-files", 0, &fixed_outfiles, 1},
   {"name-prefix", 1, 0, 'p'},
-  {"no-lines", 0, &nolinesflag, 1},
-  {"output-file", 1, 0, 'o'},
-  {"output", 1, 0, 'o'},
-  {"verbose", 0, &verboseflag, 1},
-  {"version", 0, 0, 'V'},
-  {"yacc", 0, &fixed_outfiles, 1},
   {"skeleton", 1, 0, 'S'},
   {"headerskeleton", 1, 0, 'H'},
+  {"output", 1, 0, 'o'},
+  {"output-file", 1, 0, 'o'},
+  {"defines", 0, 0, 'd'},
   {"header-file", 1, 0, 'h'},
-  {"help", 0, 0, 'u'},
+  {"version", 0, 0, 'V'},
   {"usage", 0, 0, 'u'},
+  {"help", 0, 0, 'u'},
   {0, 0, 0, 0}
 };
 
@@ -61,16 +61,19 @@ struct option longopts[] =
 void usage (stream)
      FILE *stream;
 {
-	  fprintf (stderr, "\
-Usage: %s [-dltvyVu] [-b file-prefix] [-p name-prefix]\n\
-       [-o outfile] [-h headerfile]\n\
-       [-S skeleton] [-H header-skeleton]\n\
-       [--debug] [--defines] [--fixed-output-files] [--no-lines]\n\
-       [--verbose] [--version] [--yacc] [--usage] [--help]\n\
-       [--file-prefix=prefix] [--name-prefix=prefix]\n\
-       [--skeleton=skeletonfile] [--headerskeleton=headerskeletonfile]\n\
-       [--output=outfile] [--header-name=header] grammar-file\n",
-		   program_name);
+  fprintf(stderr, "\
+Usage:\n\
+%s [-v | --verbose] [-y | --yacc | --fixed-output-files]\n\
+        [-t | --debug] [-l | --no-lines]\n\
+        [-b, --file-prefix=prefix] [-p, --name-prefix=prefix]\n\
+        [-S, --skeleton=skeletonfile] [-H, --headerskeleton=headerskeletonfile]\n\
+        [-o, --output=outfile] [-d | --defines] [-h, --header-file=headerfile]\n\
+        grammar-file\n\
+%s [-V | --version]\n\
+%s [-u | --usage | --help]\n",
+  program_name,
+  program_name,
+  program_name);
 }
 
 
