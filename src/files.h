@@ -39,7 +39,7 @@ extern FILE *fparser;  /* read the parser to copy into ftable */
 /* File name specified with -o for the output file, or 0 if no -o.  */
 extern char *spec_outfile;
 
-extern char *spec_name_prefix; /* for -a, from getargs.c */
+extern char *spec_name_prefix; /* for -p, from getargs.c */
 
 /* File name pfx specified with -b, or 0 if no -b.  */
 extern char *spec_file_prefix;

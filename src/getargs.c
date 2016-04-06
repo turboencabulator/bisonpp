@@ -42,7 +42,7 @@ struct option longopts[] =
   {"defines", 0, &definesflag, 1},
   {"file-prefix", 1, 0, 'b'},
   {"fixed-output-files", 0, &fixed_outfiles, 1},
-  {"name-prefix", 1, 0, 'a'},
+  {"name-prefix", 1, 0, 'p'},
   {"no-lines", 0, &nolinesflag, 1},
   {"output-file", 1, 0, 'o'},
   {"output", 1, 0, 'o'},
