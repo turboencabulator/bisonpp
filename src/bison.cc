@@ -26,67 +26,72 @@
 #include <stdio.h>
 #include <string.h>
 #define YYBISON 1
-$/* %{ and %header{ and %union, during decl */
+$ /* %{ and %header{ and %union, during decl */
 #define YY_@_BISON 1
 #ifndef YY_@_COMPATIBILITY
 #ifndef YY_USE_CLASS
-#define  YY_@_COMPATIBILITY 1
+#define YY_@_COMPATIBILITY 1
 #else
-#define  YY_@_COMPATIBILITY 0
+#define YY_@_COMPATIBILITY 0
 #endif
 #endif
 
 #if YY_@_COMPATIBILITY != 0
 /* backward compatibility */
-#ifdef YYLTYPE
 #ifndef YY_@_LTYPE
+#ifdef YYLTYPE
 #define YY_@_LTYPE YYLTYPE
+/* WARNING obsolete !!! user defined YYLTYPE not reported into generated header */
+/* use %define LTYPE */
 #endif
 #endif
-#ifdef YYSTYPE
 #ifndef YY_@_STYPE
+#ifdef YYSTYPE
 #define YY_@_STYPE YYSTYPE
+/* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
+/* use %define STYPE */
 #endif
 #endif
-#ifdef YYDEBUG
 #ifndef YY_@_DEBUG
-#define  YY_@_DEBUG YYDEBUG
+#ifdef YYDEBUG
+#define YY_@_DEBUG YYDEBUG
+/* WARNING obsolete !!! user defined YYDEBUG not reported into generated header */
+/* use %define DEBUG */
 #endif
 #endif
-#ifdef YY_@_STYPE
-#ifndef yystype
-#define yystype YY_@_STYPE
+#ifndef YY_@_ERROR_VERBOSE
+#ifdef YYERROR_VERBOSE
+#define YY_@_ERROR_VERBOSE YYERROR_VERBOSE
+#endif
+#endif
+#ifndef YY_@_LSP_NEEDED
+#ifdef YYLSP_NEEDED
+#define YY_@_LSP_NEEDED YYLSP_NEEDED
 #endif
 #endif
 #endif
-$
+
 /* DEFAULT LTYPE*/
 #ifdef YY_@_LSP_NEEDED
 #ifndef YY_@_LTYPE
-typedef
-  struct yyltype
-    {
-      int timestamp;
-      int first_line;
-      int first_column;
-      int last_line;
-      int last_column;
-      char *text;
-   }
-  yyltype;
-
+typedef struct yyltype {
+	int timestamp;
+	int first_line;
+	int first_column;
+	int last_line;
+	int last_column;
+	char *text;
+} yyltype;
 #define YY_@_LTYPE yyltype
 #endif
 #endif
-/* DEFAULT STYPE*/
-      /* We used to use `unsigned long' as YY_@_STYPE on MSDOS,
-	 but it seems better to be consistent.
-	 Most programs should declare their own type anyway.  */
 
+/* DEFAULT STYPE*/
 #ifndef YY_@_STYPE
 #define YY_@_STYPE int
 #endif
-/* DEFAULT MISCELANEOUS */
+
+/* DEFAULT MISCELLANEOUS */
 #ifndef YY_@_PARSE
 #define YY_@_PARSE yyparse
 #endif
@@ -117,36 +122,25 @@ typedef
 
 #if YY_@_COMPATIBILITY != 0
 /* backward compatibility */
-#ifdef YY_@_LTYPE
 #ifndef YYLTYPE
+#ifdef YY_@_LTYPE
 #define YYLTYPE YY_@_LTYPE
-#else
-/* WARNING obsolete !!! user defined YYLTYPE not reported into generated header */
 #endif
 #endif
 #ifndef YYSTYPE
 #define YYSTYPE YY_@_STYPE
-#else
-/* WARNING obsolete !!! user defined YYSTYPE not reported into generated header */
 #endif
-#ifdef YY_@_PURE
+#ifndef yystype
+#define yystype YY_@_STYPE
+#endif
 #ifndef YYPURE
+#ifdef YY_@_PURE
 #define YYPURE YY_@_PURE
 #endif
 #endif
-#ifdef YY_@_DEBUG
 #ifndef YYDEBUG
+#ifdef YY_@_DEBUG
 #define YYDEBUG YY_@_DEBUG
-#endif
-#endif
-#ifndef YY_@_ERROR_VERBOSE
-#ifdef YYERROR_VERBOSE
-#define YY_@_ERROR_VERBOSE YYERROR_VERBOSE
-#endif
-#endif
-#ifndef YY_@_LSP_NEEDED
-#ifdef YYLSP_NEEDED
-#define YY_@_LSP_NEEDED YYLSP_NEEDED
 #endif
 #endif
 #endif
@@ -171,11 +165,11 @@ typedef
 #ifndef YY_@_CONSTRUCTOR_PARAM
 #define YY_@_CONSTRUCTOR_PARAM
 #endif
-#ifndef YY_@_CONSTRUCTOR_CODE
-#define YY_@_CONSTRUCTOR_CODE
-#endif
 #ifndef YY_@_CONSTRUCTOR_INIT
 #define YY_@_CONSTRUCTOR_INIT
+#endif
+#ifndef YY_@_CONSTRUCTOR_CODE
+#define YY_@_CONSTRUCTOR_CODE
 #endif
 /* choose between enum and const */
 #ifndef YY_@_USE_CONST_TOKEN
@@ -189,35 +183,38 @@ typedef
 #endif
 #endif
 
-class YY_@_CLASS YY_@_INHERIT
-{
+class YY_@_CLASS YY_@_INHERIT {
 public:
 $ /* tokens */
 public:
- int YY_@_PARSE (YY_@_PARSE_PARAM);
- virtual void YY_@_ERROR(const char *msg) YY_@_ERROR_BODY;
+	int YY_@_PARSE(YY_@_PARSE_PARAM);
+	virtual void YY_@_ERROR(const char *msg) YY_@_ERROR_BODY;
+
 #ifdef YY_@_PURE
 #ifdef YY_@_LSP_NEEDED
- virtual int  YY_@_LEX (YY_@_STYPE *YY_@_LVAL,YY_@_LTYPE *YY_@_LLOC) YY_@_LEX_BODY;
+	virtual int YY_@_LEX(YY_@_STYPE *YY_@_LVAL, YY_@_LTYPE *YY_@_LLOC) YY_@_LEX_BODY;
 #else
- virtual int  YY_@_LEX (YY_@_STYPE *YY_@_LVAL) YY_@_LEX_BODY;
+	virtual int YY_@_LEX(YY_@_STYPE *YY_@_LVAL) YY_@_LEX_BODY;
 #endif
 #else
- virtual int YY_@_LEX() YY_@_LEX_BODY;
- YY_@_STYPE YY_@_LVAL;
+	virtual int YY_@_LEX() YY_@_LEX_BODY;
+	YY_@_STYPE YY_@_LVAL;
 #ifdef YY_@_LSP_NEEDED
- YY_@_LTYPE YY_@_LLOC;
+	YY_@_LTYPE YY_@_LLOC;
 #endif
- int   YY_@_NERRS;
- int    YY_@_CHAR;
+	int YY_@_NERRS;
+	int YY_@_CHAR;
 #endif
+
 #if YY_@_DEBUG != 0
- int YY_@_DEBUG_FLAG;   /*  nonzero means print parse trace     */
+public:
+	int YY_@_DEBUG_FLAG;  /* nonzero means print parse trace */
 #endif
+
 public:
- YY_@_CLASS(YY_@_CONSTRUCTOR_PARAM);
+	YY_@_CLASS(YY_@_CONSTRUCTOR_PARAM);
 public:
- YY_@_MEMBERS
+	YY_@_MEMBERS
 };
 /* other declare folow */
 $ /* const int YY_@_CLASS::tokens */
@@ -804,5 +801,4 @@ yyerrhandle:
 
 /* END */
 $ /* section 3 */
-
-/* AFTER END , NEVER READ !!! */
+/* AFTER END, NEVER READ !!! */

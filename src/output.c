@@ -217,8 +217,11 @@ output_before_read()
 void
 output_headers()
 {
-  if(definesflag) output_section(fhskel,fdefines);
-  output_section(fparser,ftable);
+  if (!nolinesflag)
+    fprintf(ftable, "#line @\n");
+  if (!nolinesflag && definesflag)
+    fprintf(fdefines, "#line @\n");
+
   if (pure_parser)
     {
       fprintf(ftable, "#ifndef YY_%s_PURE\n", parser_name);
@@ -232,6 +235,19 @@ output_headers()
       fprintf(fdefines, "#endif\n");
     }
 
+  if (debugflag)
+    {
+      fprintf(ftable, "#ifndef YY_%s_DEBUG\n", parser_name);
+      fprintf(ftable, "#define YY_%s_DEBUG 1\n", parser_name);
+      fprintf(ftable, "#endif\n");
+    }
+  if (debugflag && definesflag)
+    {
+      fprintf(fdefines, "#ifndef YY_%s_DEBUG\n", parser_name);
+      fprintf(fdefines, "#define YY_%s_DEBUG 1\n", parser_name);
+      fprintf(fdefines, "#endif\n");
+    }
+
   /* Rename certain symbols if -p was specified.  */
   if (spec_name_prefix)
     {
@@ -239,13 +255,17 @@ output_headers()
           parser_name, spec_name_prefix);
       fprintf(ftable, "#define YY_%s_LEX %slex\n",
           parser_name, spec_name_prefix);
-      fprintf(ftable, "#define YY_%s_ERROR %serror\n",
-          parser_name, spec_name_prefix);
       fprintf(ftable, "#define YY_%s_LVAL %slval\n",
+          parser_name, spec_name_prefix);
+      fprintf(ftable, "#define YY_%s_LLOC %slloc\n",
           parser_name, spec_name_prefix);
       fprintf(ftable, "#define YY_%s_CHAR %schar\n",
           parser_name, spec_name_prefix);
+      fprintf(ftable, "#define YY_%s_NERRS %snerrs\n",
+          parser_name, spec_name_prefix);
       fprintf(ftable, "#define YY_%s_DEBUG_FLAG %sdebug\n",
+          parser_name, spec_name_prefix);
+      fprintf(ftable, "#define YY_%s_ERROR %serror\n",
           parser_name, spec_name_prefix);
     }
   if (spec_name_prefix && definesflag)
@@ -254,13 +274,17 @@ output_headers()
           parser_name, spec_name_prefix);
       fprintf(fdefines, "#define YY_%s_LEX %slex\n",
           parser_name, spec_name_prefix);
-      fprintf(fdefines, "#define YY_%s_ERROR %serror\n",
-          parser_name, spec_name_prefix);
       fprintf(fdefines, "#define YY_%s_LVAL %slval\n",
+          parser_name, spec_name_prefix);
+      fprintf(fdefines, "#define YY_%s_LLOC %slloc\n",
           parser_name, spec_name_prefix);
       fprintf(fdefines, "#define YY_%s_CHAR %schar\n",
           parser_name, spec_name_prefix);
+      fprintf(fdefines, "#define YY_%s_NERRS %snerrs\n",
+          parser_name, spec_name_prefix);
       fprintf(fdefines, "#define YY_%s_DEBUG_FLAG %sdebug\n",
+          parser_name, spec_name_prefix);
+      fprintf(fdefines, "#define YY_%s_ERROR %serror\n",
           parser_name, spec_name_prefix);
     }
 
@@ -274,19 +298,6 @@ output_headers()
 void
 output_trailers()
 {
-  /* output the definition of YYLTYPE into the fattrs and fdefines files.  */
-  if (debugflag)
-    {
-      fprintf(ftable, "#ifndef YY_%s_DEBUG\n", parser_name);
-      fprintf(ftable, "#define YY_%s_DEBUG 1\n", parser_name);
-      fprintf(ftable, "#endif\n");
-    }
-  if (debugflag && definesflag)
-    {
-      fprintf(fdefines, "#ifndef YY_%s_DEBUG\n", parser_name);
-      fprintf(fdefines, "#define YY_%s_DEBUG 1\n", parser_name);
-      fprintf(fdefines, "#endif\n");
-    }
   /* Now we know whether we need the line-number stack.
      If we do, write its type into the .tab.h file.  */
   if (yylsp_needed)
