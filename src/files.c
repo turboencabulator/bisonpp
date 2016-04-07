@@ -462,12 +462,11 @@ int k;
       rewind(ftable);
       while((c=getc(ftable)) != EOF)
 	{if(c=='\n') lftmp++;
-	 if(c== *pospattern++ && c)
-          {if(*pospattern==0)
+	 if(c==*pospattern || (pospattern=pattern, c==*pospattern))
+          {if(*++pospattern==0)
             {fprintf(ftmp,"%d \"%s\"",lftmp+1, quoted_filename(tabfile));
              pospattern=pattern;continue;}
           }
-         else pospattern=pattern;
          putc(c,ftmp);
         }
       fclose(ftmp);
@@ -483,13 +482,12 @@ int k;
 	  rewind(fdefines);
 	  while((c=getc(fdefines)) != EOF)
 		{if(c=='\n') lftmp++;
-		 if(c==*pospattern++ && c)
-		  {if(*pospattern==0)
+		 if(c==*pospattern || (pospattern=pattern, c==*pospattern))
+		  {if(*++pospattern==0)
 		    {fprintf(ftmp,"%d \"%s\"",lftmp+1
                                              ,quoted_filename(defsfile));
                      pospattern=pattern;continue;}
 		  }
-		 else pospattern=pattern;
 		 putc(c,ftmp);
 		}
 	  fclose(fdefines);
