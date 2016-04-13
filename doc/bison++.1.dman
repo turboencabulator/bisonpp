@@ -147,8 +147,8 @@
 	#if \%DEBUG != 0
 	\%DEBUG_FLAG=0;
 	#endif
-	\%CONSTRUCTOR_CODE;
-	\};
+	\%CONSTRUCTOR_CODE
+	\}
   :SSECTION "Default Class declaration"
 	// Here is the default declaration made in the header when you \%define nothing
 	// typical yyltype
