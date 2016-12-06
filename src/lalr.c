@@ -47,6 +47,7 @@ LA[l, i] is 1 if the rule LAruleno[l] is applicable in the appropriate state
 If LA[l, i] and LA[l, j] are both 1 for i != j, it is a conflict.
 */
 
+#include <limits.h>
 #include <stdio.h>
 #include "system.h"
 #include "machine.h"
@@ -287,7 +288,7 @@ set_goto_map()
 
 	  if (ISTOKEN(symbol)) break;
 
-	  if (ngotos == MAXSHORT)
+	  if (ngotos == SHRT_MAX)
 	    toomany("gotos");
 
 	  ngotos++;

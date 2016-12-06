@@ -17,14 +17,6 @@ You should have received a copy of the GNU General Public License
 along with Bison; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
-#ifdef	eta10
-#define	MAXSHORT	2147483647
-#define	MINSHORT	-2147483648
-#else
-#define	MAXSHORT	32767
-#define	MINSHORT	-32768
-#endif
-
 #if defined (_MSDOS) && !defined (__GO32__)
 #define	BITS_PER_WORD	16
 #define MAXTABLE	16383

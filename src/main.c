@@ -18,9 +18,9 @@ along with Bison; see the file COPYING.  If not, write to
 the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 
+#include <limits.h>
 #include <stdio.h>
 #include "system.h"
-#include "machine.h"	/* JF for MAXSHORT */
 
 extern	int lineno;
 extern	int verboseflag;
@@ -126,7 +126,7 @@ char *s;
   char buffer[200];
 
 	/* JF new msg */
-  sprintf(buffer, "limit of %d exceeded, too many %s", MAXSHORT, s);
+  sprintf(buffer, "limit of %d exceeded, too many %s", SHRT_MAX, s);
   fatal(buffer);
 }
 

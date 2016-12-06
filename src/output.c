@@ -98,6 +98,7 @@ YYNTBASE = ntokens.
 
 */
 
+#include <limits.h>
 #include <stdio.h>
 #include "system.h"
 #include "machine.h"
@@ -636,7 +637,7 @@ void
 output_defines()
 {
   fprintf(ftable, "\n\n#define\tYYFINAL\t\t%d\n", final_state);
-  fprintf(ftable, "#define\tYYFLAG\t\t%d\n", MINSHORT);
+  fprintf(ftable, "#define\tYYFLAG\t\t%d\n", SHRT_MIN);
   fprintf(ftable, "#define\tYYNTBASE\t%d\n", ntokens);
 }
 
@@ -724,7 +725,7 @@ token_actions()
    The value returned is used as the default action (yydefact) for the state.
    In addition, actrow is filled with what to do for each kind of token,
    index by symbol number, with zero meaning do the default action.
-   The value MINSHORT, a very negative number, means this situation
+   The value SHRT_MIN, a very negative number, means this situation
    is an error.  The parser recognizes this value specially.
 
    This is where conflicts are resolved.  The loop over lookahead rules
@@ -825,7 +826,7 @@ int state;
   errp = err_table[state];
 
   /* See which tokens are an explicit error in this state
-     (due to %nonassoc).  For them, record MINSHORT as the action.  */
+     (due to %nonassoc).  For them, record SHRT_MIN as the action.  */
 
   if (errp)
     {
@@ -834,7 +835,7 @@ int state;
       for (i = 0; i < k; i++)
 	{
 	  symbol = errp->errs[i];
-	  actrow[symbol] = MINSHORT;
+	  actrow[symbol] = SHRT_MIN;
 	}
     }
 
@@ -887,7 +888,7 @@ int state;
   if (default_rule == 0)
     for (j = 0; j < ntokens; j++)
       {
-	if (actrow[j] == MINSHORT)
+	if (actrow[j] == SHRT_MIN)
 	  actrow[j] = 0;
       }
 
@@ -1119,7 +1120,7 @@ pack_table()
   high = 0;
 
   for (i = 0; i < nvectors; i++)
-    base[i] = MINSHORT;
+    base[i] = SHRT_MIN;
 
   for (i = 0; i < MAXTABLE; i++)
     check[i] = -1;

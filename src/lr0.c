@@ -21,9 +21,9 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 /* See comments in state.h for the data structures that represent it.
    The entry point is generate_states.  */
 
+#include <limits.h>
 #include <stdio.h>
 #include "system.h"
-#include "machine.h"
 #include "new.h"
 #include "gram.h"
 #include "state.h"
@@ -370,7 +370,7 @@ int symbol;
   fprintf(stderr, "Entering new_state, symbol = %d\n", symbol);
 #endif
 
-  if (nstates >= MAXSHORT)
+  if (nstates >= SHRT_MAX)
     toomany("states");
 
   isp1 = kernel_base[symbol];

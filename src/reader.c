@@ -25,6 +25,7 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 The entry point is reader().  */
 
+#include <limits.h>
 #include <stdio.h>
 #include <ctype.h>
 #include "system.h"
@@ -33,7 +34,6 @@ The entry point is reader().  */
 #include "symtab.h"
 #include "lex.h"
 #include "gram.h"
-#include "machine.h"
 
 
 /* Number of slots allocated (but not necessarily used yet) in `rline'  */
@@ -1551,9 +1551,9 @@ readgram()
     }
   set_parser_name(NULL); /* if undef, use default */
 
-  if (nsyms > MAXSHORT)
+  if (nsyms > SHRT_MAX)
     fatals("too many symbols (tokens plus nonterminals); maximum %d",
-	   MAXSHORT);
+	   SHRT_MAX);
   if (nrules == 0)
     fatal("no input grammar");
 
