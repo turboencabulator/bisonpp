@@ -210,7 +210,7 @@ void
 output_before_read()
 {
   fprintf(ftable, "\n/* A Bison++ parser, made from %s\n", infile);
-  fprintf(ftable, " * with Bison++ version %s */\n", version_string);
+  fprintf(ftable, " * with %s */\n", version_string);
   output_section(fparser,ftable);
   if(definesflag) output_section(fhskel,fdefines);
 };

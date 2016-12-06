@@ -114,8 +114,6 @@ bucket *errtoken;
 /* Nonzero if any action or guard uses the @n construct.  */
 int yylsp_needed;
 
-extern char *version_string;
-
 extern void output_before_read();
 extern  void output_about_token();
 void set_parser_name();
