@@ -5,6 +5,7 @@ AC_PREREQ([2.69])
 AC_INIT([bison++],[1.21-8],[coetmeur@icdc.fr],[bison++])
 AC_CONFIG_SRCDIR([src/reduce.c])
 AC_CONFIG_LIBOBJ_DIR([lib])
+AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([src/config.h])
 AC_USE_SYSTEM_EXTENSIONS
