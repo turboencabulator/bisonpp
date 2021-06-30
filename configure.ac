@@ -10,6 +10,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS([src/config.h])
 AC_USE_SYSTEM_EXTENSIONS
 AM_INIT_AUTOMAKE([foreign])
+AM_SILENT_RULES([yes])
 
 # Checks for programs.
 AC_PROG_CC
