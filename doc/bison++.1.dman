@@ -1,20 +1,19 @@
 %          %Z% %M% %Y% %Q% %I% %E% %U% (%F%)
-%         
+%
 %          Nom du Fichier : 	bison++.dman
 %          Titre : 		bison++ man page of modifications
-%          Auteur:		coetmeur@icdc.fr		
+%          Auteur:		coetmeur@icdc.fr
 %          Date de creation :	3/3/93
-%         
+%
 %          Description :
 %         	Document de reference : see bison.1
 %         	Objet : present difference from bison 1.19 (standard)
 %         	and bison++ from which it has been made
-%         
-%          
+%
 %          historique :
 %          |>date<|	|>auteur<|	|>objet<|
-%         
-% header NOM SECTION DATE AUTEUR DOMAINE 
+%
+% header NOM SECTION DATE AUTEUR DOMAINE
 :HEADER BISON++ 1 "3/3/93" "GNU and RDT" "COMMANDS"
 :SECTION "NAME"
 	bison++ - generate a parser in C or C++.
@@ -25,25 +24,25 @@
 
 :SECTION "DESCRIPTION"
 	Generate a parser. Based on "bison" version 1.19. See "bison"(1) for details of main functionality. Only changes are reported here.
-	You now generate a C++ class if you are compiling with a C++ compiler. The generated header is far more rich than before, and is made from a skeleton-header. The code skeleton is also richer, and the generated code is less important compared to the skeletons. It permit you to modify much things only by changing the two skeletons.
+	You now generate a C++ class if you are compiling with a C++ compiler. The generated header is far richer than before, and is made from a skeleton-header. The code skeleton is also richer, and the generated code is less important compared to the skeletons. It permits you to modify many things only by changing the two skeletons.
 	In plain C, "bison++" is compatible with standard "bison".
 :SECTION "OPTIONS"
-	-{"--name-prefix="<prefix>} {"-p" <prefix>} Set prefix of names of yylex,yyerror. keeped for compatibility, but you should prefer "\%define LEX" <newname>, and similar.
+	-{"--name-prefix="<prefix>} {"-p" <prefix>} Set prefix of names of yylex, yyerror. Kept for compatibility, but you should prefer "\%define LEX" <newname>, and similar.
 	-{"--skeleton="<skeleton>} {"-S" <skeleton>} Set filename of code skeleton. Default is "bison.cc".
 	-{"--headerskeleton="<header-skeleton>} {"-H" <header-skeleton>} Set filename of header skeleton. Default is "bison.h".
 	-{"--header-file="<header>} {"-h" <header>} Set filename of generated header. Default is "y.tab.h", or <prefix>.h if option "-b" is used, or <c_basename>.h if "-o" is used. ".c", ".cc", ".C", ".cpp", ".cxx" options for output files are replaced by ".h" for header name.
 :SECTION "DECLARATIONS"
 	These are new declarations to put in the declaration section:
-	-{"\%name" <parser_name>} Declare the name of this parser. Used for C++ class name, and to render many names unique. default is "parse". Must be given before "\%union" and "\%define", or never.
-	-{"\%define" <define_name> <content...>} Declare a macro symbol in header and code. The name of the symbol is "YY_"'<parser_name>'"_"'<define_name>'. The content is given after, as with #define. Newline can be escaped as with #define. Many symbols are proposed for customisation. 
-	-{"\%union"} as with bison generate a union for  semantic type. The difference is that the union is named "yy_"'<parser_name>'"_stype". 
+	-{"\%name" <parser_name>} Declare the name of this parser. Used for C++ class name, and to render many names unique. Default is "parse". Must be given before "\%union" and "\%define", or never.
+	-{"\%define" <define_name> <content...>} Declare a macro symbol in header and code. The name of the symbol is "YY_"'<parser_name>'"_"'<define_name>'. The content is given after, as with #define. Newline can be escaped as with #define. Many symbols are proposed for customisation.
+	-{"\%union"} as with bison generate a union for semantic type. The difference is that the union is named "yy_"'<parser_name>'"_stype".
 	-{"\%pure_parser"} As with bison in C. In C++ generate a parser where yylval, and yylloc (if needed) are passed as parameter to yylex, and where some instance variable are local to yyparse (like yydebug...). Not very useful, since you can create multiple instances for reentering another parser.
 	-{"\%header\{"} Like "\%\{", but include this text both in the header, and in the code. End with "\%\}". When put in declaration section, the text is added before the definitions. It can be put in the last section so that the text is added after all definition in the header, and in the last section at the current position in the code.
 	Note that the order of these declaration is important, since they are translated into preprocessor symbols, typedef or code depending on their type. For example use "\%name" before any "\%define", since the name is needed to compose the name of the define symbols. Order of "\%header" and "\%union" is important, since type may be undefined.
 :SECTION "DECLARATION DEFINE SYMBOLS"
 	These are the symbols you can define with "\%define" in declaration section, or that are already defined. Remind that they are replaced by a preprocessor "#define YY_"'<parser_name>'"_"'<name>'.
-	-{"BISON"} Defined to "1" in the code. used for conditional code. Don't redefine it.
-	-{"h_included"} Defined  in the code, and in the header. Used for include anti-reload. Don't redefine it.
+	-{"BISON"} Defined to "1" in the code. Used for conditional code. Don't redefine it.
+	-{"h_included"} Defined in the code, and in the header. Used for include anti-reload. Don't redefine it.
 	-{"COMPATIBILITY"} Indicate if obsoleted defines are to be used and produced. If defined to 0, indicate no compatibility needed, else if defined to non-0, generate it. If it is undefined, default is to be compatible if classes are not used.
 	-{"USE_CONST_TOKEN"} If defined to non-0, use "static const int" class member constants instead of an enum for the token IDs. Default is 0.
 	-{"ENUM_TOKEN"} When "USE_CONST_TOKEN" is 0, this symbol defines the name of the enum type. Default is "yy_"'<parser_name>'"_enum_token".
@@ -51,7 +50,7 @@
 	-{"LSP_NEEDED"} If defined indicate that @ construct is used, so "LLOC" stack is needed. Can be defined to force use of location stack.
 	-{"DEBUG"} If defined to non-0 activate debugging code. See" YYDEBUG" in bison.
 	-{"ERROR_VERBOSE"} If defined activate dump parser stack when error append.
-	-{"STYPE"} The type of the semantic value of token. defined by "\%union". default is "int". See "YYSTYPE" in bison. Don't redefine it, if you use a "\%union".
+	-{"STYPE"} The type of the semantic value of token. Defined by "\%union". Default is "int". See "YYSTYPE" in bison. Don't redefine it, if you use a "\%union".
 	-{"LTYPE"} The token location type. If needed default is "yyltype". See "YYLTYPE" in bison. Default "yyltype" is a typedef and struct defined as in old bison.
 	-{"LLOC"} The token location variable name. If needed, default is "yylloc". See "yylloc" in bison.
 	-{"LVAL"} The token semantic value variable name. Default "yylval". See "yylval" in bison.
@@ -63,32 +62,32 @@
 	-{"NERRS"} The error count name. Default "yynerrs". See "yynerrs" in bison.
 	-{"DEBUG_FLAG"} The runtime debug flag. Default "yydebug". See "yydebug" in bison.
 	These are only used if class is generated.
-	-{"CLASS"} The class name. default is the parser name.
+	-{"CLASS"} The class name. Default is the parser name.
 	-{"INHERIT"} The inheritance list. Don't forget the ":" before, if not empty list.
 	-{"MEMBERS"} List of members to add to the class definition, before ending it.
 	-{"LEX_BODY"} The scanner member function body. May be defined to "=0" for pure function, or to an inline body.
 	-{"ERROR_BODY"} The error member function body. May be defined to "=0" for pure function, or to an inline body.
-	-{"CONSTRUCTOR_PARAM"} List of parameters of the constructor. Don't allows default value.
-	-{"CONSTRUCTOR_INIT"} List of initialisation befor constructor call. If not empty don't forget the ":" before list of initialisation.
+	-{"CONSTRUCTOR_PARAM"} List of parameters of the constructor. Default parameter values are not allowed.
+	-{"CONSTRUCTOR_INIT"} List of initialisation before constructor call. If not empty don't forget the ":" before list of initialisation.
 	-{"CONSTRUCTOR_CODE"} Code added after internal initialisation in constructor.
 :SECTION "OBSOLETED PREPROCESSOR SYMBOLS"
-	if you use  new features, the folowing symbols should not be used, though they are proposed. The symbol "COMPATIBILITY" control their disponibility. Incoherence may arise if they are defined simultaneously with the new symbol.
-	-{"YYLTYPE"} prefer "\%define LTYPE".
-	-{"YYSTYPE"} prefer "\%define STYPE".
-	-{"YYDEBUG"} prefer "\%define DEBUG".
-	-{"YYERROR_VERBOSE"} prefer "\%define ERROR_VERBOSE".
-	-{"YYLSP_NEEDED"} prefer "\%define LSP_NEEDED".
-	-{"yystype"} Now a preprocessor symbol instead of a typedef. prefer  "yy_"'<parser_name>'"_stype".
+	If you use new features, the following symbols should not be used, though they are proposed. The symbol "COMPATIBILITY" control their disponibility. Incoherence may arise if they are defined simultaneously with the new symbol.
+	-{"YYLTYPE"} Prefer "\%define LTYPE".
+	-{"YYSTYPE"} Prefer "\%define STYPE".
+	-{"YYDEBUG"} Prefer "\%define DEBUG".
+	-{"YYERROR_VERBOSE"} Prefer "\%define ERROR_VERBOSE".
+	-{"YYLSP_NEEDED"} Prefer "\%define LSP_NEEDED".
+	-{"yystype"} Now a preprocessor symbol instead of a typedef. Prefer "yy_"'<parser_name>'"_stype".
 :SECTION "CONSERVED PREPROCESSOR SYMBOLS"
 	These symbols are kept, and cannot be defined elsewhere, since they control private parameters of the generated parser, or are actually unused. You can "#define" them to the value you need, or indirectly to the name of a "\%define" generated symbol if you want to be clean.
-	-{"YYINITDEPTH"} initial stack depth.
-	-{"YYMAXDEPTH"} stack overflow limit depth.
-	-{"yyoverflow"} instead of expand with alloca, realloc manualy or raise error.
+	-{"YYINITDEPTH"} Initial stack depth.
+	-{"YYMAXDEPTH"} Stack overflow limit depth.
+	-{"yyoverflow"} Instead of expand with alloca, realloc manually or raise error.
 :SECTION "OTHER ADDED PREPROCESSOR SYMBOLS"
-	-{"YY_USE_CLASS"} indicate that class will be produced. Default if C++.
+	-{"YY_USE_CLASS"} Indicate that class will be produced. Default if C++.
 :SECTION "C++ CLASS GENERATED"
 	To simplify the notation, we note "\%SYMBOLNAME" the preprocessor symbol generated with a "\%define" of this name. In fact see the use of "\%define" for its real name.
-	Note that there is sometime symbols that differ from only an underscore "_", like "yywrap" and "yy_wrap". They are much different. In this case "yy_wrap()" is a virtual member function, and "yywrap()" is a macro. 
+	Note that there are sometimes symbols that differ by only an underscore "_", like "yywrap" and "yy_wrap". They are very different. In this case "yy_wrap()" is a virtual member function, and "yywrap()" is a macro.
   :SSECTION "General Class declaration"
 	class \%CLASS \%INHERIT
 	\{
@@ -111,21 +110,20 @@
 	>	int \%PARSE (\%PARSE_PARAM);
 	>	virtual void \%ERROR(const char *msg) \%ERROR_BODY;
 	#ifdef \%PURE
-	>	// if \%PURE , we must pass the value and (eventually) the location explicitly
+	>	// if \%PURE, we must pass the value and (if \%LSP_NEEDED) the location via parameters
 	#ifdef \%LSP_NEEDED
-	>	//  if and only if \%LSP_NEEDED , we must pass the location explicitly
 	>	virtual int  \%LEX (\%STYPE *\%LVAL,\%LTYPE *\%LLOC) \%LEX_BODY;
 	#else
 	>	virtual int  \%LEX (\%STYPE *\%LVAL) \%LEX_BODY;
 	#endif
 	#else
-	>	// if not \%PURE , we must declare member to store the value and (eventually) the location explicitly
-	>	// if not \%PURE ,\%NERRS and \%CHAR are not local variable to \%PARSE, so must be member 
+	>	// if not \%PURE, we must declare members to store the value and (if \%LSP_NEEDED) the location
 	>	virtual int \%LEX() \%LEX_BODY; 
 	>	\%STYPE \%LVAL;
 	#ifdef \%LSP_NEEDED
 	>	\%LTYPE \%LLOC;
 	#endif
+	>	// if not \%PURE, \%NERRS and \%CHAR are not local variables of \%PARSE, so must be members
 	>	int   \%NERRS;
 	>	int    \%CHAR;
 	#endif
@@ -145,7 +143,7 @@
 	const int \%CLASS::AND_SO_ON = 258;
 	// ...
 	#endif
-	// here is the construcor
+	// here is the constructor
 	\%CLASS::\%CLASS(\%CONSTRUCTOR_PARAM) \%CONSTRUCTOR_INIT
 	\{
 	#if \%DEBUG != 0
@@ -215,10 +213,10 @@
 :SECTION "EXAMPLES"
 	This man page has been produced through a parser made in C++ with this version of "bison++" and our version of "flex++" (same author).
 :SECTION "FILES"
-	-{"bison.cc"} main skeleton.
-	-{"bison.h"} header skeleton.
-	-{"bison.hairy"} old main skeleton for semantic parser. Not adapted to this version. Kept for future works.
-:SECTION "ENVIRONNEMENT"
+	-{"bison.cc"} Main skeleton.
+	-{"bison.h"} Header skeleton.
+	-{"bison.hairy"} Old main skeleton for semantic parser. Not adapted to this version. Kept for future works.
+:SECTION "ENVIRONMENT"
 :SECTION "DIAGNOSTICS"
 :SECTION "SEE ALSO"
 	"bison"(1), "bison.info" (use texinfo), "flex++"(1).
@@ -226,14 +224,14 @@
 :SECTION "BUGS"
 	Tell us more!
 	The "\%semantic_parser" is no more supported. If you want to use it, adapt the skeletons, and maybe "bison++" generator itself. The reason is that it seems unused, unuseful, not documented, and too complex for us to support. Tell us if you use, need, or understand it.
-	Header is not included in the parser code. Change made in the generated header are not used in the parser code, even if you include it voluntarily, since it is guarded against re-include. So don't modify it. 
+	Header is not included in the parser code. Change made in the generated header are not used in the parser code, even if you include it voluntarily, since it is guarded against re-include. So don't modify it.
 	For the same reasons, if you modify the header skeleton, or the code skeleton, report the changes in the other skeleton if applicable. If not done, incoherent declarations may lead to unpredictable result.
 	Use of defines for "YYLTYPE", "YYSTYPE", "YYDEBUG" is supported for backward compatibility in C, but should not be used with new features, as "\%defines" or C++ classes. You can define them, and use them as with old "bison" in C only.
 	Parameters are richer than before, and nothing is removed. POSIX compliance can be enforced by not using extensions. If you want to forbid them, there is a good job!
 :SECTION "FUTURE WORKS"
 	Tell us!
 	Support semantic parser. Is it really used?
-	POSIX compliance. isn't it good now?
+	POSIX compliance. Isn't it good now?
 	Use lex and yacc (flex/bison) to generate the scanner/parser. It would be comfortable for future works, though very complicated. Who feels it good?
 	"iostream": This is a great demand. This work will be done as soon as possible. The virtual members permit such work still easily.
 
@@ -241,7 +239,7 @@
 	With this install the executable is named bison++. Rename it bison if you want, because it could replace "bison".
 :SECTION "TESTS"
 :SECTION "AUTHORS"
-	Alain Coëtmeur (coetmeur@icdc.fr), R&D department (RDT) , Informatique-CDC, France.
+	Alain Coëtmeur (coetmeur@icdc.fr), R&D department (RDT), Informatique-CDC, France.
 :SECTION "RESTRICTIONS"
-	The words 'author', and 'us' mean the author and colleages, not GNU. We don't have contacted GNU about this, nowaday. If you're in GNU, we are ready to propose it to you, and you may tell us what you think about.
+	The words 'author', and 'us' mean the author and colleagues, not GNU. We have not contacted GNU about this. If you're in GNU, we are ready to propose it to you, and you may tell us what you think about it.
 	Based on GNU version 1.21 of bison. Modified by the author.
