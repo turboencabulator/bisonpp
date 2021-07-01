@@ -31,7 +31,7 @@
 	-{"--name-prefix="<prefix>} {"-p" <prefix>} Set prefix of names of yylex,yyerror. keeped for compatibility, but you should prefer "\%define LEX" <newname>, and similar.
 	-{"--skeleton="<skeleton>} {"-S" <skeleton>} Set filename of code skeleton. Default is "bison.cc".
 	-{"--headerskeleton="<header-skeleton>} {"-H" <header-skeleton>} Set filename of header skeleton. Default is "bison.h".
-	-{"--header-file="<header>} {"-h" <header>} Set filename of header skeleton. Default is "y.tab.h", or <prefix>.h if option "-b" is used or <c_basename>.h if "-o" is used. ".c", ".cc", ".C", ".cpp", ".cxx" options for output files are replaced by ".h" for header name.
+	-{"--header-file="<header>} {"-h" <header>} Set filename of generated header. Default is "y.tab.h", or <prefix>.h if option "-b" is used, or <c_basename>.h if "-o" is used. ".c", ".cc", ".C", ".cpp", ".cxx" options for output files are replaced by ".h" for header name.
 :SECTION "DECLARATIONS"
 	These are new declarations to put in the declaration section:
 	-{"\%name" <parser_name>} Declare the name of this parser. Used for C++ class name, and to render many names unique. default is "parse". Must be given before "\%union" and "\%define", or never.
