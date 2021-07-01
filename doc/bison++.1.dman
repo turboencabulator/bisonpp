@@ -94,46 +94,46 @@
 	\{
 	public: 
 	#if \%USE_CONST_TOKEN != 0
-	static const TOKEN_NEXT;
-	static const AND_SO_ON;
-	// ...
+	>	static const TOKEN_NEXT;
+	>	static const AND_SO_ON;
+	>	// ...
 	#else
-        enum \%ENUM_TOKEN \{ \%NULL_TOKEN
-	> ,TOKEN_FIRST=256
-	> ,TOKEN_NEXT=257
-	> ,AND_SO_ON=258
-	\} ;
-	// ...
+	>	enum \%ENUM_TOKEN \{ \%NULL_TOKEN
+	>>		,TOKEN_FIRST=256
+	>>		,TOKEN_NEXT=257
+	>>		,AND_SO_ON=258
+	>	\} ;
+	>	// ...
 	#endif
 	public:
- 	int \%PARSE (\%PARSE_PARAM);
- 	virtual void \%ERROR(char *msg) \%ERROR_BODY;
+	>	int \%PARSE (\%PARSE_PARAM);
+	>	virtual void \%ERROR(char *msg) \%ERROR_BODY;
 	#ifdef \%PURE
-	>// if \%PURE , we must pass the value and (eventually) the location explicitly
-	>#ifdef \%LSP_NEEDED
-	>//  if and only if \%LSP_NEEDED , we must pass the location explicitly
- 	>virtual int  \%LEX (\%STYPE *\%LVAL,\%LTYPE *\%LLOC) \%LEX_BODY;
-	>#else
- 	>virtual int  \%LEX (\%STYPE *\%LVAL) \%LEX_BODY;
-	>#endif
+	>	// if \%PURE , we must pass the value and (eventually) the location explicitly
+	#ifdef \%LSP_NEEDED
+	>	//  if and only if \%LSP_NEEDED , we must pass the location explicitly
+	>	virtual int  \%LEX (\%STYPE *\%LVAL,\%LTYPE *\%LLOC) \%LEX_BODY;
 	#else
-	>// if not \%PURE , we must declare member to store the value and (eventually) the location explicitly
-	>// if not \%PURE ,\%NERRS and \%CHAR are not local variable to \%PARSE, so must be member 
-	>virtual int \%LEX() \%LEX_BODY; 
- 	>\%STYPE \%LVAL;
-	>#ifdef \%LSP_NEEDED
-	>\%LTYPE \%LLOC;
-	>#endif
- 	>int   \%NERRS;
-	>int    \%CHAR;
+	>	virtual int  \%LEX (\%STYPE *\%LVAL) \%LEX_BODY;
+	#endif
+	#else
+	>	// if not \%PURE , we must declare member to store the value and (eventually) the location explicitly
+	>	// if not \%PURE ,\%NERRS and \%CHAR are not local variable to \%PARSE, so must be member 
+	>	virtual int \%LEX() \%LEX_BODY; 
+	>	\%STYPE \%LVAL;
+	#ifdef \%LSP_NEEDED
+	>	\%LTYPE \%LLOC;
+	#endif
+	>	int   \%NERRS;
+	>	int    \%CHAR;
 	#endif
 	#if \%DEBUG != 0
- 	int \%DEBUG_FLAG;   /*  nonzero means print parse trace     */
+	>	int \%DEBUG_FLAG;   /*  nonzero means print parse trace     */
 	#endif
 	public:
- 	\%CLASS(\%CONSTRUCTOR_PARAM);
+	>	\%CLASS(\%CONSTRUCTOR_PARAM);
 	public:
- 	\%MEMBERS 
+	>	\%MEMBERS 
 	\};
 	// here are defined the token constants
 	// for example:
@@ -152,48 +152,47 @@
   :SSECTION "Default Class declaration"
 	// Here is the default declaration made in the header when you \%define nothing
 	// typical yyltype
-	typedef struct yyltype
-    	\{
-      	int timestamp;
-      	int first_line;
-      	int first_column;
-      	int last_line;
-      	int last_column;
-      	char *text;
-   	\} yyltype;
+	typedef struct yyltype \{
+	>	int timestamp;
+	>	int first_line;
+	>	int first_column;
+	>	int last_line;
+	>	int last_column;
+	>	char *text;
+	\} yyltype;
 	// class definition 
 	class parser 
 	\{
 	public: 
-        enum yy_parser_enum_token \{ YY_parser_NULL_TOKEN
-	> ,TOKEN_FIRST=256
-	> ,TOKEN_NEXT=257
-	> ,AND_SO_ON=258
-	\} ;
-	// ...
+	>	enum yy_parser_enum_token \{ YY_parser_NULL_TOKEN
+	>>		,TOKEN_FIRST=256
+	>>		,TOKEN_NEXT=257
+	>>		,AND_SO_ON=258
+	>	\} ;
+	>	// ...
 	public:
- 	int yyparse (yyparse_PARAM);
- 	virtual void yyerror(char *msg) ;
+	>	int yyparse (yyparse_PARAM);
+	>	virtual void yyerror(char *msg) ;
 	#ifdef YY_parser_PURE
-	>#ifdef YY_parser_LSP_NEEDED
- 	>virtual int  yylex (int *yylval,yyltype *yylloc) ;
-	>#else
- 	>virtual int  yylex (int *yylval) ;
-	>#endif
+	#ifdef YY_parser_LSP_NEEDED
+	>	virtual int  yylex (int *yylval,yyltype *yylloc) ;
 	#else
- 	>virtual int yylex() \%LEX_BODY;
- 	>int yylval;
-	>#ifdef YY_parser_LSP_NEEDED
-	>yyltype yylloc;
-	>#endif
- 	>int   yynerrs;
-	>int    yychar;
+	>	virtual int  yylex (int *yylval) ;
+	#endif
+	#else
+	>	virtual int yylex() \%LEX_BODY;
+	>	int yylval;
+	#ifdef YY_parser_LSP_NEEDED
+	>	yyltype yylloc;
+	#endif
+	>	int   yynerrs;
+	>	int    yychar;
 	#endif
 	#if YY_parser_DEBUG != 0
- 	int yydebug;   
+	>	int yydebug;   
 	#endif
 	public:
- 	parser();
+	>	parser();
 	public:
 	\};
 	// here is the constructor code

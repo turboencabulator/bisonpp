@@ -159,54 +159,66 @@ class %CLASS %INHERIT
 public:
 .PP
 #if %USE_CONST_TOKEN != 0
-.PP
+.\"bloc1[
+.IP
 static const TOKEN_NEXT;
-.PP
+.IP
 static const AND_SO_ON;
-.PP
+.IP
 // \.\.\.
+.\"bloc1]
 .PP
 #else
-.PP
-enum %ENUM_TOKEN { %NULL_TOKEN
 .\"bloc1[
+.IP
+enum %ENUM_TOKEN { %NULL_TOKEN
+.RS
+.\"bloc2[
 .IP
 ,TOKEN_FIRST=256
 .IP
 ,TOKEN_NEXT=257
 .IP
 ,AND_SO_ON=258
-.\"bloc1]
-.PP
+.RE
+.\"bloc2]
+.IP
 } ;
-.PP
+.IP
 // \.\.\.
+.\"bloc1]
 .PP
 #endif
 .PP
 public:
-.PP
+.\"bloc1[
+.IP
 int %PARSE (%PARSE_PARAM);
-.PP
+.IP
 virtual void %ERROR(char *msg) %ERROR_BODY;
+.\"bloc1]
 .PP
 #ifdef %PURE
 .\"bloc1[
 .IP
 // if %PURE , we must pass the value and (eventually) the location explicitly
-.IP
+.\"bloc1]
+.PP
 #ifdef %LSP_NEEDED
+.\"bloc1[
 .IP
 // if and only if %LSP_NEEDED , we must pass the location explicitly
 .IP
 virtual int %LEX (%STYPE *%LVAL,%LTYPE *%LLOC) %LEX_BODY;
-.IP
+.\"bloc1]
+.PP
 #else
+.\"bloc1[
 .IP
 virtual int %LEX (%STYPE *%LVAL) %LEX_BODY;
-.IP
-#endif
 .\"bloc1]
+.PP
+#endif
 .PP
 #else
 .\"bloc1[
@@ -218,12 +230,16 @@ virtual int %LEX (%STYPE *%LVAL) %LEX_BODY;
 virtual int %LEX() %LEX_BODY;
 .IP
 %STYPE %LVAL;
-.IP
+.\"bloc1]
+.PP
 #ifdef %LSP_NEEDED
+.\"bloc1[
 .IP
 %LTYPE %LLOC;
-.IP
+.\"bloc1]
+.PP
 #endif
+.\"bloc1[
 .IP
 int %NERRS;
 .IP
@@ -233,18 +249,24 @@ int %CHAR;
 #endif
 .PP
 #if %DEBUG != 0
-.PP
+.\"bloc1[
+.IP
 int %DEBUG_FLAG; /* nonzero means print parse trace */
+.\"bloc1]
 .PP
 #endif
 .PP
 public:
-.PP
+.\"bloc1[
+.IP
 %CLASS(%CONSTRUCTOR_PARAM);
+.\"bloc1]
 .PP
 public:
-.PP
+.\"bloc1[
+.IP
 %MEMBERS
+.\"bloc1]
 .PP
 };
 .PP
@@ -282,21 +304,21 @@ const %CLASS::TOKEN_FIRST=1;
 .PP
 // typical yyltype
 .PP
-typedef struct yyltype
-.PP
-{
-.PP
+typedef struct yyltype {
+.\"bloc1[
+.IP
 int timestamp;
-.PP
+.IP
 int first_line;
-.PP
+.IP
 int first_column;
-.PP
+.IP
 int last_line;
-.PP
+.IP
 int last_column;
-.PP
+.IP
 char *text;
+.\"bloc1]
 .PP
 } yyltype;
 .PP
@@ -307,40 +329,48 @@ class parser
 {
 .PP
 public:
-.PP
-enum yy_parser_enum_token { YY_parser_NULL_TOKEN
 .\"bloc1[
+.IP
+enum yy_parser_enum_token { YY_parser_NULL_TOKEN
+.RS
+.\"bloc2[
 .IP
 ,TOKEN_FIRST=256
 .IP
 ,TOKEN_NEXT=257
 .IP
 ,AND_SO_ON=258
-.\"bloc1]
-.PP
+.RE
+.\"bloc2]
+.IP
 } ;
-.PP
+.IP
 // \.\.\.
+.\"bloc1]
 .PP
 public:
-.PP
-int yyparse (yyparse_PARAM);
-.PP
-virtual void yyerror(char *msg) ;
-.PP
-#ifdef YY_parser_PURE
 .\"bloc1[
 .IP
+int yyparse (yyparse_PARAM);
+.IP
+virtual void yyerror(char *msg) ;
+.\"bloc1]
+.PP
+#ifdef YY_parser_PURE
+.PP
 #ifdef YY_parser_LSP_NEEDED
+.\"bloc1[
 .IP
 virtual int yylex (int *yylval,yyltype *yylloc) ;
-.IP
+.\"bloc1]
+.PP
 #else
+.\"bloc1[
 .IP
 virtual int yylex (int *yylval) ;
-.IP
-#endif
 .\"bloc1]
+.PP
+#endif
 .PP
 #else
 .\"bloc1[
@@ -348,12 +378,16 @@ virtual int yylex (int *yylval) ;
 virtual int yylex() %LEX_BODY;
 .IP
 int yylval;
-.IP
+.\"bloc1]
+.PP
 #ifdef YY_parser_LSP_NEEDED
+.\"bloc1[
 .IP
 yyltype yylloc;
-.IP
+.\"bloc1]
+.PP
 #endif
+.\"bloc1[
 .IP
 int yynerrs;
 .IP
@@ -363,14 +397,18 @@ int yychar;
 #endif
 .PP
 #if YY_parser_DEBUG != 0
-.PP
+.\"bloc1[
+.IP
 int yydebug;
+.\"bloc1]
 .PP
 #endif
 .PP
 public:
-.PP
+.\"bloc1[
+.IP
 parser();
+.\"bloc1]
 .PP
 public:
 .PP
