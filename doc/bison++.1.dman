@@ -107,7 +107,7 @@
 	#endif
 	public:
 	>	int \%PARSE (\%PARSE_PARAM);
-	>	virtual void \%ERROR(char *msg) \%ERROR_BODY;
+	>	virtual void \%ERROR(const char *msg) \%ERROR_BODY;
 	#ifdef \%PURE
 	>	// if \%PURE , we must pass the value and (eventually) the location explicitly
 	#ifdef \%LSP_NEEDED
@@ -172,7 +172,7 @@
 	>	// ...
 	public:
 	>	int yyparse (yyparse_PARAM);
-	>	virtual void yyerror(char *msg) ;
+	>	virtual void yyerror(const char *msg) ;
 	#ifdef YY_parser_PURE
 	#ifdef YY_parser_LSP_NEEDED
 	>	virtual int  yylex (int *yylval,yyltype *yylloc) ;

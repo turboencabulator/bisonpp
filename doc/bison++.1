@@ -195,7 +195,7 @@ public:
 .IP
 int %PARSE (%PARSE_PARAM);
 .IP
-virtual void %ERROR(char *msg) %ERROR_BODY;
+virtual void %ERROR(const char *msg) %ERROR_BODY;
 .\"bloc1]
 .PP
 #ifdef %PURE
@@ -353,7 +353,7 @@ public:
 .IP
 int yyparse (yyparse_PARAM);
 .IP
-virtual void yyerror(char *msg) ;
+virtual void yyerror(const char *msg) ;
 .\"bloc1]
 .PP
 #ifdef YY_parser_PURE
