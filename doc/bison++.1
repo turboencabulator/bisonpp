@@ -62,9 +62,9 @@ Defined in the code, and in the header\. Used for include anti\-reload\. Don't r
 .IP "\\fBCOMPATIBILITY\\fP"
 Indicate if obsoleted defines are to be used and produced\. If defined to 0, indicate no compatibility needed, else if defined to non\-0, generate it\. If it is undefined, default is to be compatible if classes are not used\.
 .IP "\\fBUSE_CONST_TOKEN\\fP"
-Indicate (if defined as 1) that \fBstatic const int\fP are to be used in C++, for token IDs\. By default an enum is used to define the token IDs instead of const\.
+If defined to non\-0, use \fBstatic const int\fP class member constants instead of an enum for the token IDs\. Default is 0\.
 .IP "\\fBENUM_TOKEN\\fP"
-When \fBenum\fP are used instead of \fBstatic const int\fP for token IDs, this symbol define the name of the enum type\. Defined to \fByy_\fP'\fIparser_name\fP'\fB_enum_token\fP by default\.
+When \fBUSE_CONST_TOKEN\fP is 0, this symbol defines the name of the enum type\. Default is \fByy_\fP'\fIparser_name\fP'\fB_enum_token\fP\.
 .IP "\\fBPURE\\fP"
 Indicate that \fB%pure_parser\fP is asked\.\.\. Don't redefine it\.
 .IP "\\fBLSP_NEEDED\\fP"
@@ -161,9 +161,11 @@ public:
 #if %USE_CONST_TOKEN != 0
 .\"bloc1[
 .IP
-static const TOKEN_NEXT;
+static const int TOKEN_FIRST;
 .IP
-static const AND_SO_ON;
+static const int TOKEN_NEXT;
+.IP
+static const int AND_SO_ON;
 .IP
 // \.\.\.
 .\"bloc1]
@@ -171,21 +173,23 @@ static const AND_SO_ON;
 #else
 .\"bloc1[
 .IP
-enum %ENUM_TOKEN { %NULL_TOKEN
+enum %ENUM_TOKEN {
 .RS
 .\"bloc2[
 .IP
-,TOKEN_FIRST=256
+%NULL_TOKEN = 0
 .IP
-,TOKEN_NEXT=257
+,TOKEN_FIRST = 256
 .IP
-,AND_SO_ON=258
+,TOKEN_NEXT = 257
+.IP
+,AND_SO_ON = 258
+.IP
+// \.\.\.
 .RE
 .\"bloc2]
 .IP
 } ;
-.IP
-// \.\.\.
 .\"bloc1]
 .PP
 #endif
@@ -275,12 +279,14 @@ public:
 // for example:
 .PP
 #if %USE_CONST_TOKEN != 0
-.\"bloc1[
-.IP
-const %CLASS::TOKEN_FIRST=1;
-.IP
-\.\.\.
-.\"bloc1]
+.PP
+const int %CLASS::TOKEN_FIRST = 256;
+.PP
+const int %CLASS::TOKEN_NEXT = 257;
+.PP
+const int %CLASS::AND_SO_ON = 258;
+.PP
+// \.\.\.
 .PP
 #endif
 .PP
@@ -331,21 +337,23 @@ class parser
 public:
 .\"bloc1[
 .IP
-enum yy_parser_enum_token { YY_parser_NULL_TOKEN
+enum yy_parser_enum_token {
 .RS
 .\"bloc2[
 .IP
-,TOKEN_FIRST=256
+YY_parser_NULL_TOKEN = 0
 .IP
-,TOKEN_NEXT=257
+,TOKEN_FIRST = 256
 .IP
-,AND_SO_ON=258
+,TOKEN_NEXT = 257
+.IP
+,AND_SO_ON = 258
+.IP
+// \.\.\.
 .RE
 .\"bloc2]
 .IP
 } ;
-.IP
-// \.\.\.
 .\"bloc1]
 .PP
 public:

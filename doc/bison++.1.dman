@@ -45,8 +45,8 @@
 	-{"BISON"} Defined to "1" in the code. used for conditional code. Don't redefine it.
 	-{"h_included"} Defined  in the code, and in the header. Used for include anti-reload. Don't redefine it.
 	-{"COMPATIBILITY"} Indicate if obsoleted defines are to be used and produced. If defined to 0, indicate no compatibility needed, else if defined to non-0, generate it. If it is undefined, default is to be compatible if classes are not used.
-	-{"USE_CONST_TOKEN"} Indicate (if defined as 1) that "static const int" are to be used  in C++, for token IDs. By default an enum is used to define the token IDs instead of  const.
-	-{"ENUM_TOKEN"} When "enum" are used instead of "static const int" for token IDs, this symbol define the name of the enum type. Defined to "yy_"'<parser_name>'"_enum_token" by default.
+	-{"USE_CONST_TOKEN"} If defined to non-0, use "static const int" class member constants instead of an enum for the token IDs. Default is 0.
+	-{"ENUM_TOKEN"} When "USE_CONST_TOKEN" is 0, this symbol defines the name of the enum type. Default is "yy_"'<parser_name>'"_enum_token".
 	-{"PURE"} Indicate that "\%pure_parser" is asked... Don't redefine it.
 	-{"LSP_NEEDED"} If defined indicate that @ construct is used, so "LLOC" stack is needed. Can be defined to force use of location stack.
 	-{"DEBUG"} If defined to non-0 activate debugging code. See" YYDEBUG" in bison.
@@ -94,16 +94,18 @@
 	\{
 	public: 
 	#if \%USE_CONST_TOKEN != 0
-	>	static const TOKEN_NEXT;
-	>	static const AND_SO_ON;
+	>	static const int TOKEN_FIRST;
+	>	static const int TOKEN_NEXT;
+	>	static const int AND_SO_ON;
 	>	// ...
 	#else
-	>	enum \%ENUM_TOKEN \{ \%NULL_TOKEN
-	>>		,TOKEN_FIRST=256
-	>>		,TOKEN_NEXT=257
-	>>		,AND_SO_ON=258
+	>	enum \%ENUM_TOKEN \{
+	>>		\%NULL_TOKEN = 0
+	>>		,TOKEN_FIRST = 256
+	>>		,TOKEN_NEXT = 257
+	>>		,AND_SO_ON = 258
+	>>		// ...
 	>	\} ;
-	>	// ...
 	#endif
 	public:
 	>	int \%PARSE (\%PARSE_PARAM);
@@ -138,8 +140,10 @@
 	// here are defined the token constants
 	// for example:
 	#if \%USE_CONST_TOKEN != 0
-	>const \%CLASS::TOKEN_FIRST=1;
-	>...
+	const int \%CLASS::TOKEN_FIRST = 256;
+	const int \%CLASS::TOKEN_NEXT = 257;
+	const int \%CLASS::AND_SO_ON = 258;
+	// ...
 	#endif
 	// here is the construcor
 	\%CLASS::\%CLASS(\%CONSTRUCTOR_PARAM) \%CONSTRUCTOR_INIT
@@ -164,12 +168,13 @@
 	class parser 
 	\{
 	public: 
-	>	enum yy_parser_enum_token \{ YY_parser_NULL_TOKEN
-	>>		,TOKEN_FIRST=256
-	>>		,TOKEN_NEXT=257
-	>>		,AND_SO_ON=258
+	>	enum yy_parser_enum_token \{
+	>>		YY_parser_NULL_TOKEN = 0
+	>>		,TOKEN_FIRST = 256
+	>>		,TOKEN_NEXT = 257
+	>>		,AND_SO_ON = 258
+	>>		// ...
 	>	\} ;
-	>	// ...
 	public:
 	>	int yyparse (yyparse_PARAM);
 	>	virtual void yyerror(const char *msg) ;
