@@ -627,10 +627,10 @@ $   /* the action file gets copied in in place of this dollarsign  */
   yylsp++;
   if (yylen == 0)
     {
-      yylsp->first_line = YY_@_LLOC.first_line;
-      yylsp->first_column = YY_@_LLOC.first_column;
-      yylsp->last_line = (yylsp-1)->last_line;
-      yylsp->last_column = (yylsp-1)->last_column;
+      yylsp->first_line = (yylsp-1)->last_line;
+      yylsp->first_column = (yylsp-1)->last_column;
+      yylsp->last_line = YY_@_LLOC.first_line;
+      yylsp->last_column = YY_@_LLOC.first_column;
       yylsp->text = 0;
     }
   else
