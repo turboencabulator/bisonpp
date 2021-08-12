@@ -328,10 +328,10 @@ int
 #endif
      YY_@_PARSE(YY_@_PARSE_PARAM)
 {
-  register int yystate;
-  register int yyn;
-  register short *yyssp;
-  register YY_@_STYPE *yyvsp;
+  int yystate;
+  int yyn;
+  short *yyssp;
+  YY_@_STYPE *yyvsp;
   int yyerrstatus;      /*  number of tokens to shift before error messages enabled */
   int yychar1=0;          /*  lookahead token as an internal (translated) token number */
 
