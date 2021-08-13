@@ -86,10 +86,10 @@ char *header_name=NULL;
 
 
 
-extern char     *mktemp();      /* So the compiler won't complain */
 extern char     *getenv();
 extern void     perror();
 FILE    *tryopen();     /* This might be a good idea */
+FILE    *tryopentemp();
 void done();
 
 extern char *program_name;
@@ -296,28 +296,21 @@ openfiles()
       foutput = tryopen(outfile, "w");
     }
 
-#ifdef _MSDOS
-  actfile = _tempnam(".","b_ac");
-  tmpattrsfile = _tempnam(".","b_at");
-  tmptabfile = _tempnam(".","b_ta");
-  tmpdefsfile = _tempnam(".","b_de");
-#else
-  actfile = mktemp(stringappend(tmp_base, tmp_len, "act.XXXXXX"));
-  tmpattrsfile = mktemp(stringappend(tmp_base, tmp_len, "attrs.XXXXXX"));
-  tmptabfile = mktemp(stringappend(tmp_base, tmp_len, "tab.XXXXXX"));
-  tmpdefsfile = mktemp(stringappend(tmp_base, tmp_len, "defs.XXXXXX"));
-#endif /* not MSDOS */
+  actfile = stringappend(tmp_base, tmp_len, "act.XXXXXX");
+  tmpattrsfile = stringappend(tmp_base, tmp_len, "attrs.XXXXXX");
+  tmptabfile = stringappend(tmp_base, tmp_len, "tab.XXXXXX");
+  tmpdefsfile = stringappend(tmp_base, tmp_len, "defs.XXXXXX");
 
-  faction = tryopen(actfile, "w+");
-  fattrs = tryopen(tmpattrsfile,"w+");
-  ftable = tryopen(tmptabfile, "w+");
+  faction = tryopentemp(actfile, "w+");
+  fattrs = tryopentemp(tmpattrsfile, "w+");
+  ftable = tryopentemp(tmptabfile, "w+");
 
   if (definesflag)
     { if(header_name)
        defsfile=header_name;
       else
        defsfile = stringappend(name_base, base_length, ".h");
-      fdefines = tryopen(tmpdefsfile, "w+");
+      fdefines = tryopentemp(tmpdefsfile, "w+");
     }
 
 	/* These are opened by `done' or `open_extra_files', if at all */
@@ -412,6 +405,33 @@ char *mode;
     {
       fprintf(stderr, "%s: ", program_name);
       perror(name);
+      done(2);
+    }
+  return ptr;
+}
+
+FILE *
+tryopentemp(name, mode)
+char *name;
+char *mode;
+{
+  int fd;
+  FILE *ptr;
+
+  fd = mkstemp(name);
+  if (fd < 0)
+    {
+      fprintf(stderr, "%s: ", program_name);
+      perror("mkstemp");
+      done(2);
+    }
+  ptr = fdopen(fd, mode);
+  if (ptr == NULL)
+    {
+      fprintf(stderr, "%s: ", program_name);
+      perror(name);
+      close(fd);
+      unlink(name);
       done(2);
     }
   return ptr;

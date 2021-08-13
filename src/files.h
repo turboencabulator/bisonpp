@@ -50,7 +50,6 @@ extern char *defsfile;
 extern char *tabfile;
 extern char *attrsfile;
 extern char *guardfile;
-extern char *actfile;
 
 /* AC addings */
 #define HFILE	XHFILE		/*  header Skeleton */
