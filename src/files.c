@@ -320,13 +320,6 @@ openfiles()
       fdefines = tryopen(tmpdefsfile, "w+");
     }
 
-#ifndef _MSDOS
-  unlink(actfile);
-  unlink(tmpattrsfile);
-  unlink(tmptabfile);
-  unlink(tmpdefsfile);
-#endif
-
 	/* These are opened by `done' or `open_extra_files', if at all */
   if (spec_outfile)
     tabfile = spec_outfile;
@@ -429,10 +422,16 @@ done(k)
 int k;
 {
   if (faction)
-    fclose(faction);
+    {
+      fclose(faction);
+      unlink(actfile);
+    }
 
   if (fattrs)
-    fclose(fattrs);
+    {
+      fclose(fattrs);
+      unlink(tmpattrsfile);
+    }
 
   if (fguard)
     fclose(fguard);
@@ -471,6 +470,7 @@ int k;
         }
       fclose(ftmp);
       fclose(ftable);
+      unlink(tmptabfile);
 
       if (definesflag)
 	{ lftmp=1;
@@ -491,6 +491,7 @@ int k;
 		 putc(c,ftmp);
 		}
 	  fclose(fdefines);
+	  unlink(tmpdefsfile);
 	  fprintf(ftmp,"#endif\n");
           lftmp++;
 	  fclose(ftmp);
@@ -498,23 +499,9 @@ int k;
     }
 
 #ifdef VMS
-  if (faction)
-    delete(actfile);
-  if (fattrs)
-    delete(tmpattrsfile);
-  if (ftable)
-    delete(tmptabfile);
-  if (fdefines)
-    delete(tmpdefsfile);
   if (k==0) sys$exit(SS$_NORMAL);
   sys$exit(SS$_ABORT);
 #else
-#ifdef _MSDOS
-  if (actfile) unlink(actfile);
-  if (tmpattrsfile) unlink(tmpattrsfile);
-  if (tmptabfile) unlink(tmptabfile);
-  if (tmpdefsfile) unlink(tmpdefsfile);
-#endif /* MSDOS */
   exit(k);
 #endif /* not VMS */
 }
