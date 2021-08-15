@@ -20,7 +20,6 @@ the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.  */
 
 #ifdef VMS
 #include <ssdef.h>
-#define unlink delete
 #ifndef XPFILE
 #define XPFILE "GNU_BISON:[000000]BISON.CC"
 #endif
@@ -425,13 +424,13 @@ char *mode;
       perror("mkstemp");
       done(2);
     }
+  unlink(name);
   ptr = fdopen(fd, mode);
   if (ptr == NULL)
     {
       fprintf(stderr, "%s: ", program_name);
       perror(name);
       close(fd);
-      unlink(name);
       done(2);
     }
   return ptr;
@@ -442,16 +441,10 @@ done(k)
 int k;
 {
   if (faction)
-    {
-      fclose(faction);
-      unlink(actfile);
-    }
+    fclose(faction);
 
   if (fattrs)
-    {
-      fclose(fattrs);
-      unlink(tmpattrsfile);
-    }
+    fclose(fattrs);
 
   if (fguard)
     fclose(fguard);
@@ -490,7 +483,6 @@ int k;
         }
       fclose(ftmp);
       fclose(ftable);
-      unlink(tmptabfile);
 
       if (definesflag)
 	{ lftmp=1;
@@ -511,7 +503,6 @@ int k;
 		 putc(c,ftmp);
 		}
 	  fclose(fdefines);
-	  unlink(tmpdefsfile);
 	  fprintf(ftmp,"#endif\n");
           lftmp++;
 	  fclose(ftmp);

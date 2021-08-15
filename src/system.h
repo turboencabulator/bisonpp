@@ -21,7 +21,6 @@
 
 #define strlwr _strlwr
 #define strupr _strupr
-#define unlink _unlink
 #endif /* MSDOS */
 
 #if defined(STDC_HEADERS) || defined(HAVE_STRING_H)
